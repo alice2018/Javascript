@@ -1,0 +1,31 @@
+
+<SCRIPT>
+	function mylink()
+	{	
+		// load the content from the WinLIKE perspective: not only 3.html without the path!
+		top.WinLIKE.openaddress('samples/frameset/4.html',null,'jojo');
+	}
+	
+	function test()
+	{
+		alert("Hello, I'm frame one");
+	}
+</SCRIPT>
+
+
+<!-- INSERT THIS TWO LINES! -->
+<script src="../../winlike/winman/winxtra.js"></script>
+<BODY onLoad="registerWinLIKE_(self);">
+<!-- END OF FRAME REGISTRATION -->
+
+	<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+		Hello, I am 1.html
+		<BR><BR>
+		<A HREF=4.html TARGET=jojo>HTML-Link to another window</A>
+		<BR><BR>
+		<A HREF="javascript:mylink();">API call to another window</A>
+		<BR><BR>
+		<!-- disable WinLIKE -->
+		<A HREF="4.html" NAME=WLoff_>HTML-Link to this frame</A>
+
+<IFRAME SRC=3.html></IFRAME>

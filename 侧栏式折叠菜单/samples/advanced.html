@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
+    <title>Advanced sample</title>
+    <script type="text/javascript">
+      /* declare the URL to navbar */
+      _NavBar_url = "../navbar/";
+    </script>
+    <!-- include the main script -->
+    <script type="text/javascript" src="../navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      function initDocument() {
+        var menu = new NavBar(document.getElementById("content"));
+        menu.openMenu();
+        var section;
+        section = new NavSection(menu, "Section 1",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ],
+                       [ "Item 5", "#", null, null, null ],
+                       [ "Item 6", "#", null, null, null ],
+                       [ "Item 7", "#", null, null, null ]
+                       ]);
+        section.setClass("customsec sec1");
+        section.addToggleTab("sec1.gif", "sec1-closed.gif");
+
+        section = new NavSection(menu, "Section 2",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ],
+                       [ "Item 5", "#", null, null, null ],
+                       [ "Item 6", "#", null, null, null ],
+                       [ "Item 7", "#", null, null, null ]
+                       ]);
+        menu.currentSection = section;
+        section.setClass("customsec sec2");
+        section.addToggleTab("sec2.gif", "sec2-closed.gif");
+
+        section = new NavSection(menu, "Section 3", "div-sec3");
+        section.setClass("customsec sec3");
+        section.addToggleTab("sec3.gif", "sec3-closed.gif");
+
+        menu.closeMenu(true, true);
+        menu.generate();
+        menu.prefs["mono-section"] = false;
+        menu.sync();
+      }
+    </script>
+
+    <style type="text/css">
+      @import url("../navbar/navbar.css");
+
+      html, body { margin: 0; }
+      body { background-color: #204; font: 14px "trebuchet ms",tahoma,verdana,sans-serif; }
+
+      #content-body {
+        padding: 20px;
+        border-left: 1px solid #000;
+        border-bottom: 1px solid #000;
+        background-color: #ddf;
+      }
+
+      /* and here let's override some stuff */
+
+      .menuholder {
+        background: transparent;
+      }
+
+      .menubar .customsec {
+        width: 100%;
+      }
+      .menubar .customsec .body {
+        padding-right: 0;
+        -moz-border-radius: 0;
+      }
+      .menubar .title {
+        width: 100%;
+        background-color: #4c4;
+        -moz-border-radius: 0;
+      }
+      .menubar .title-hilite { color: #000; }
+
+      .menubar .sec1-title,
+      .menubar .sec1 .body,
+      .menubar .sec1 .body table {
+        background-color: #ffc;
+      }
+      .menubar .title-hilite.sec1-title {
+        background-color: #eeb;
+      }
+      .menubar .sec2-title,
+      .menubar .sec2 .body,
+      .menubar .sec2 .body table {
+        background-color: #fcf;
+      }
+      .menubar .title-hilite.sec2-title {
+        background-color: #ebe;
+      }
+      .menubar .sec3-title,
+      .menubar .sec3 .body,
+      .menubar .sec3 .body table {
+        background-color: #cfc;
+      }
+      .menubar .title-hilite.sec3-title {
+        background-color: #beb;
+      }
+
+    </style>
+
+  </head>
+
+  <body onload="initDocument()">
+    <div id="div-sec3" style="color: #000">
+      <b>Blah blah</b><br />
+      » Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+        diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+        aliquam erat volutpat. Ut wisi enim ad minim veniam, quis.
+    </div>
+    <div id="content">
+      <div id="content-body">
+        <h1 style="margin-top: 0">Advanced NavBar sample</h1>
+
+        <p>
+          This advanced sample shows some interesting aspects:
+        </p>
+
+        <ol>
+          <li>
+            <p>
+              You can make each section look different from the others
+              by adding one or more custom CSS classes. (see
+              <tt>section.setClass(...)</tt> calls in the page source).
+              In our sample we add “<tt>custom secX</tt>” (where X is
+              the section number).  This way we can add some common
+              values to all sections, and extra customization to each
+              section separately.
+            </p>
+          </li>
+          <li>
+            <p>
+              You can add a “toggle tab” button to certain sections
+              (here we added them to all sections).  That is an image
+              with small arrows which remains visible when the NavBar is
+              hidden so users will know which sections there are.  To do
+              this we call <tt>section.addToggleTab("img-expanded.gif",
+              "imd-closed.gif")</tt>.
+            </p>
+          </li>
+          <li>
+            <p>
+              Section 3 is an HTML section (its contents is HTML
+              available in page rather than normal NavBar items).  For
+              this to happen we passed the ID of a DIV element which is
+              present in this page instead of the usual array of arrays
+              that define items.  Look in the source of this page at the
+              definition of the third section.
+            </p>
+          </li>
+          <li>
+            <p>
+              The second green control bar (at the bottom) includes a
+              “sticky” button and hides the default arrow button.  This
+              is done with <tt>menu.closeMenu(true, true)</tt> right
+              before <tt>menu.generate()</tt>.  The meaning of the
+              arguments are, in this order: “show sticky button” and
+              “hide arrow button”.
+            </p>
+          </li>
+          <li>
+            <p>
+              It sets the current menu section to section #2.  This
+              isn't done in the standard way but rather with the
+              following code: <tt>menu.currentSection = section;</tt>
+              (where <tt>section</tt> is a reference to the section
+              section).  This has the effect that when the “sync”
+              button is closed, the menu will close all sections
+              except #2.
+            </p>
+          </li>
+        </ol>
+        <p>
+          This demo shows how you can customize the default CSS file.
+          As you can see, the sections in this NavBar are as wide as the
+          NavBar itself, which is required for the “toggle tab” images
+          to look well when the NavBar is hidden.
+        </p>
+        <p>
+          The “toggle tab” buttons are equivalent in functionality to
+          the arrow button from the top control bar—that is, they hide
+          or show the whole NavBar.  The nice thing about them is that
+          you can show the section name even when NavBar is hidden.
+        </p>
+
+        <h2>Customizing the content <tt>div</tt></h2>
+
+        <p>
+          Following the NavBar layout scheme, the page content must be
+          in some DIV element.  In this demo it is in a DIV with the
+          ID=“content”.  However, there are certain aspects of that
+          DIV that you can't customize through CSS directly, because
+          the way NavBar works.  So in order to make customization
+          possible, just include a second DIV (having here the
+          ID=“content-body”) and customize that one.
+        </p>
+        <p>
+          The current demo uses the following CSS in order to
+          customize the second DIV:
+        </p>
+        <pre><span class="function-name">#content-body</span> {
+  <span class="keyword">padding:</span> 20px;
+  <span class="keyword">border-left:</span> 1px solid <span class="constant">#000</span>;
+  <span class="keyword">border-bottom:</span> 1px solid <span class="constant">#000</span>;
+  <span class="keyword">background-color:</span> <span class="constant">#ddf</span>;
+}</pre>
+        <p>
+          So it adds some custom spacing, sets a light blue background
+          and left and bottom borders.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+

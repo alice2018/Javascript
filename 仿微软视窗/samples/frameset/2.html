@@ -1,0 +1,29 @@
+
+<SCRIPT>
+	function mylink()
+	{	
+		// load the content from the WinLIKE perspective: not only 4.html without the path!
+		top.WinLIKE.openaddress('samples/frameset/4.html',null,'hello');
+	}
+</SCRIPT>
+
+
+<!-- INSERT THIS TWO LINES! -->
+<script src="../../winlike/winman/winxtra.js"></script>
+<BODY onLoad="registerWinLIKE_(self);">
+<!-- END OF FRAME REGISTRATION -->
+
+	<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+		Hello, I am 2.html
+		<BR><BR>
+		<A HREF="4.html">HTML-Link to this frame</A>
+		<BR><BR>
+		<A HREF="4.html" TARGET=hello>HTML-Link to this window</A>
+		<BR><BR>
+		<A HREF="javascript:mylink();">API call to this window</A>
+
+		<BR><BR>
+		<A HREF="javascript:parent.one.test()">Javascript call to the other frame</A>
+	
+	
+	

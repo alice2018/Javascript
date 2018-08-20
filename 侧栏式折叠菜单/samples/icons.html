@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
+    <title>Custom icons sample</title>
+    <script type="text/javascript">
+      /* declare the URL to navbar */
+      _NavBar_url = "../navbar/";
+      // note, the above should be an absolute URL.  We make it fixed here
+      // for the purpose of our demo, but in a real website you should
+      // start it with a slash to ensure it works in any pages.
+      _NavBar_icons_url = "custom_icons/";
+    </script>
+    <!-- include the main script -->
+    <script type="text/javascript" src="../navbar/navbar.jss"></script>
+
+    <style type="text/css">
+      @import url("../navbar/navbar.css");
+    </style>
+    <script type="text/javascript">
+      function initDocument() {
+        var menu = new NavBar(document.getElementById("content"));
+        menu.openMenu();
+        var section;
+        section = new NavSection(menu, "Section 1",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ],
+                       [ "Item 5", "#", null, null, null ],
+                       [ "Item 6", "#", null, null, null ],
+                       [ "Item 7", "#", null, null, null ]
+                       ]);
+        section.setClass("customsec sec1");
+        section.addToggleTab("sec1.gif", "sec1-closed.gif");
+
+        section = new NavSection(menu, "Section 2",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ],
+                       [ "Item 5", "#", null, null, null ],
+                       [ "Item 6", "#", null, null, null ],
+                       [ "Item 7", "#", null, null, null ]
+                       ]);
+        menu.currentSection = section;
+        section.setClass("customsec sec2");
+        section.addToggleTab("sec2.gif", "sec2-closed.gif");
+
+        menu.closeMenu(true, true);
+        menu.generate();
+        menu.prefs["mono-section"] = false;
+        menu.sync();
+      }
+    </script>
+  </head>
+  <body onload="initDocument()">
+    <div id="content">
+      <h2>Custom icons sample</h2>
+
+      <p>
+        This sample shows you how you can use custom icons.  Just put
+        them together in a new directory and pass the path to that
+        directory in the <tt>_NavBar_icons_url</tt> variable.
+      </p>
+
+      <p>
+        These icons are just like the default ones, but inverted.
+      </p>
+    </div>
+  </body>
+</html>
+

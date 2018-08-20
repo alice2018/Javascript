@@ -1,0 +1,1 @@
+var j=new WinLIKE.window('Start',157,305,300,300,34);j.Mn=true;j.LD=false;WinLIKE.addwindow(j);var j=new WinLIKE.window('',359,102,300,300,33);j.Nam='mywin';j.Ski='light';j.Adr='samples/test.html';WinLIKE.addwindow(j);////

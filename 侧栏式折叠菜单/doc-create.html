@@ -1,0 +1,475 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (Create the NavBar)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "Create the NavBar"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+<h1>Creating the NavBar</h1>
+
+<p>
+  This page discusses the scripts that create the NavBar in more
+  detail than our “<a href="install.html">quick start install
+  guide</a>”.
+</p>
+
+<p>
+  First off, we will start from the HTML layout that your page should
+  have.  The very basic but strong requirement is that all pages using
+  NavBar should declare a “strict doctype”, that is, they should start
+  for instance with the following string:
+</p>
+
+<pre><span class="function-name">&lt;</span><span class="keyword">!DOCTYPE html PUBLIC </span><span class="string">&quot;-//W3C//DTD XHTML 1.1//EN&quot;</span><span class="keyword"> </span><span class="string">&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;</span><span class="function-name">&gt;</span></pre>
+
+<p>
+  This informs the browser that it should render the page in the
+  “standards compliant” mode.  If you do not include the DOCTYPE, in
+  new browsers (Mozilla, Firefox, Opera 7, Safari, Konqueror) the only
+  downside will be that the fonts in the menu might look bigger than
+  you'd expect.  This can be easily fixed by writing direct font
+  specification for NavBar elements in the CSS file.  However, in old
+  browsers (Internet Explorer 6) the NavBar layout will look
+  completely broken and this can't be easily fixed.  So for your own
+  sake, please <em>do</em> include the DOCTYPE declaration.  We do not
+  support situations where the DOCTYPE is missing.
+</p>
+
+<p>
+  Contrary to popular beliefs, NavBar requires a DIV-based
+  layout instead of a TABLE-based one.  Your page content must be
+  embedded in a DIV element whose ID you need to pass to the NavBar
+  constructor, and our menu will take care of creating a navigation
+  bar for that DIV, so to say.
+</p>
+
+<p>
+  In the HEAD section of your HTML, you should load the files as
+  described in <a href="doc-files.html">the previous</a> section, and
+  just right before ending the BODY tag (before &lt;/body&gt;)--or,
+  even better, upon the <tt>onload</tt> event for the BODY tag--you
+  should call a script that configures the NavBar.  Don't worry, we
+  discuss all steps here.
+</p>
+
+<h2>The HTML document</h2>
+
+<pre><span class="function-name">&lt;</span><span class="keyword">!DOCTYPE html PUBLIC </span><span class="string">&quot;-//W3C//DTD XHTML 1.1//EN&quot;</span><span class="keyword"> </span><span class="string">&quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;</span><span class="function-name">&gt;</span>
+<span class="function-name">&lt;</span><span class="html-tag">html</span><span class="function-name">&gt;</span>
+  <span class="function-name">&lt;</span><span class="html-tag">head</span><span class="function-name">&gt;</span>
+
+    <span class="comment">&lt;!-- We recommend you to encode your pages in UTF-8 --&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">meta</span> http-<span class="variable-name">equiv=</span><span class="string">&quot;content-type&quot;</span> <span class="variable-name">content=</span><span class="string">&quot;text/xml; </span><span class="variable-name">charset=</span><span class="string">utf-8&quot;</span> /<span class="function-name">&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">title</span><span class="function-name">&gt;</span>Your page title<span class="function-name">&lt;</span><span class="html-tag">/title</span><span class="function-name">&gt;</span>
+
+    <span class="comment">&lt;!-- Declare the path to NavBar files --&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">script</span> <span class="variable-name">type=</span><span class="string">&quot;text/javascript&quot;</span><span class="function-name">&gt;</span>
+      _NavBar_url = <span class="string">&quot;/navbar/&quot;</span>;
+    <span class="function-name">&lt;</span><span class="html-tag">/script</span><span class="function-name">&gt;</span>
+
+    <span class="comment">&lt;!-- Load the NavBar “stripped” JavaScript file --&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">script</span> <span class="variable-name">type=</span><span class="string">&quot;text/javascript&quot;</span> <span class="variable-name">src=</span><span class="string">&quot;/navbar/navbar.jss&quot;</span><span class="function-name">&gt;&lt;</span><span class="html-tag">/script</span><span class="function-name">&gt;</span>
+
+    <span class="comment">&lt;!-- Load the NavBar CSS file --&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">link</span> <span class="variable-name">rel=</span><span class="string">&quot;stylesheet&quot;</span> <span class="variable-name">media=</span><span class="string">&quot;all&quot;</span> <span class="variable-name">src=</span><span class="string">&quot;/navbar/navbar.css&quot;</span> /<span class="function-name">&gt;</span>
+
+  <span class="function-name">&lt;</span><span class="html-tag">/head</span><span class="function-name">&gt;</span>
+  <span class="function-name">&lt;</span><span class="html-tag">body</span><span class="function-name">&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">div</span> <span class="variable-name">id=</span><span class="string">&quot;content&quot;</span><span class="function-name">&gt;</span>
+      Your page content here.
+    <span class="function-name">&lt;</span><span class="html-tag">/div</span><span class="function-name">&gt;</span>
+    <span class="function-name">&lt;</span><span class="html-tag">script</span> <span class="variable-name">type=</span><span class="string">&quot;text/javascript&quot;</span> <span class="variable-name">src=</span><span class="string">&quot;/setupmenu.js&quot;</span><span class="function-name">&gt;&lt;</span><span class="html-tag">/script</span><span class="function-name">&gt;</span>
+  <span class="function-name">&lt;</span><span class="html-tag">/body</span><span class="function-name">&gt;</span>
+<span class="function-name">&lt;</span><span class="html-tag">/html</span><span class="function-name">&gt;</span></pre>
+
+<p>
+  So the above is the minimal skeleton for your HTML pages (except
+  comments--you can exclude them).  Note that right before closing the
+  BODY tag we load the file “setupmenu.js”.  That file will
+  instantiate the NavBar object and create the NavBar sections, as
+  discussed in the following lines.
+</p>
+
+<h2>“setupmenu.js”</h2>
+
+<p>
+  Of course, you can name this file whatever you like.  We called it
+  “setupmenu.js” because that's also the name we are using in our
+  documentation pages.  If you want to see the file that defines the
+  navigation bar that you see in this very documentation, it is in <a
+  target="_blank" title="See this file in a new window"
+  type="text/plain" href="setupmenu.js">setupmenu.js</a> from your
+  NavBar archive.
+</p>
+
+<p>
+  Also, we should have in mind that this file will serve creation of
+  NavBar for multiple pages.  It is wise to write the code in a
+  separate file because it will be cached.
+</p>
+
+<h3>Creating the NavBar</h3>
+
+<pre>  <span class="comment">// first thing, let's create the menu:
+</span>  <span class="keyword">var</span> <span class="variable-name">menu</span> = <span class="keyword">new</span> NavBar(<span class="string">&quot;content&quot;</span>);
+
+  <span class="comment">// the following will “open” the menu (create the top control bar)
+</span>  menu.openMenu();</pre>
+
+<p>
+  So far we have created the main menu bar and the top control buttons
+  (containing expand all/collapse all buttons, etc.).  The openMenu
+  function accepts 2 optional arguments, both of boolean type (true or
+  false).  But we won't use them for now--they are <a
+  href="#sticky">described later</a>.  Further, let's define NavBar
+  sections.
+</p>
+
+<h3>Creating sections</h3>
+
+<pre>  <span class="comment">// create menu sections
+</span>  <span class="keyword">var</span> <span class="variable-name">section1</span> = <span class="keyword">new</span> NavSection(
+      menu, <span class="comment">// specify the parent NavBar where this section stands
+</span>      <span class="string">&quot;Quick start&quot;</span>, <span class="comment">// the section title
+</span>      [ <span class="comment">// and here's the array of menu items
+</span>        [ <span class="string">&quot;License and index&quot;</span>,  <span class="string">&quot;index.html&quot;</span>, <span class="string">&quot;Index page&quot;</span>, <span class="string">&quot;icon.png&quot;</span> ],
+        [ <span class="string">&quot;Installation notes&quot;</span>, <span class="string">&quot;install.html&quot;</span>, <span class="string">&quot;How to install NavBar on your site&quot;</span>, <span class="string">&quot;icon.gif&quot;</span> ]
+        <span class="comment">// ...
+</span>      ]);</pre>
+
+<p>
+  The above shows a simple invocation of the <tt>NavSection</tt>
+  constructor.  Though it seems long, it actually only receives 3
+  arguments.  Here is the prototype of the constructor:
+</p>
+
+<pre>  <span class="keyword">var</span> <span class="variable-name">section</span> = <span class="keyword">new</span> NavSection(parent_bar, section_title, content);</pre>
+
+<ol>
+  <li>
+    <p><tt>parent_bar</tt> -- this is a reference to the NavBar object
+    that will contain the section being defined.  Thus, we pass “menu”.</p>
+  </li>
+  <li>
+    <p><tt>section_title</tt> -- this is a string which will appear in
+    the final bar as the section title.</p>
+  </li>
+  <li>
+    <p><tt>content</tt> -- this can be an array of items or a string.  If
+    a string is passed here, it will be interpreted as the ID of a DIV
+    element that will make the contents of that menu section.  This
+    provides an easy way for you to include plain HTML in NavBar
+    sections.</p>
+    <ul>
+      <li>
+        <p>
+          If this argument is an array of items, it should have the
+          following format:
+        </p>
+        <pre>[ [ item 1 ], [ item 2 ], ..., [ item n ] ]</pre>
+        <p>
+          So as you can see, it is actually an array of arrays.  One
+          “subarray” for each item.  The array that defines a single
+          item has this format:
+        </p>
+        <pre>[ "Label", "URL", "Title (tooltip)", "icon.gif", "target" ]</pre>
+        <p>
+          Therefore, you can define several properties for a NavBar
+          item.  First and most obvious it's the label.  Second it's
+          the URL, which can be either an absolute URL (i.e. starting
+          with “http://” or with “/”) or a relative URL.  If it's a
+          relative URL, it will be relative to the page containing the
+          NavBar.  Then you can pass the item's tooltip (pass ""--the
+          empty string--if you want no tooltip), the item's icon which
+          again, can be a relative or an absolute URL,
+          and--optionally--a target frame to open this URL to.  Here
+          are some examples that you can find in our “setupmenu.js”:
+        </p>
+        <ul>
+          <li>The "License and index" item, opens in the same frame.
+            <pre>[ "License and index", "index.html", "Index page", "images/bullet.png" ]</pre>
+          </li>
+          <li>The "A List Apart" external link, opens in a new window.
+            Has no icon (note that <b>null</b> is passed in place of the
+            icon).
+            <pre>[ "ALA", "http://www.alistapart.com", "A List Apart", null, "_blank" ]</pre>
+          </li>
+        </ul>
+        <p>
+          In order to include a separator between 2 NavBar items, pass
+          a <b>null</b> values instead of an array in place of the
+          separator item.  Like this (and that's also a “complete”
+          example about invoking the NavSection constructor):
+        </p>
+        <pre><span class="keyword">new</span> NavSection(menu, <span class="string">&quot;Section title&quot;</span>, [
+    [ <span class="string">&quot;License and index&quot;</span>, <span class="string">&quot;index.html&quot;</span>, <span class="string">&quot;Index page&quot;</span>, <span class="string">&quot;images/bullet.png&quot;</span> ],
+    <span class="keyword">null</span>, <span class="comment">// here's the separator
+</span>    [ <span class="string">&quot;ALA&quot;</span>, <span class="string">&quot;http://www.alistapart.com&quot;</span>, <span class="string">&quot;A List Apart&quot;</span>, <span class="keyword">null</span>, <span class="string">&quot;_blank&quot;</span> ]
+]);</pre>
+      </li>
+      <li>
+        <p>
+          If an ID is passed, then the DIV element having that ID will
+          be searched in the DOM tree, and if found, it will become
+          the content of that NavBar section.  If an element having
+          that ID is not found then nothing happens (NavBar won't show
+          an error).  Here is an example:
+        </p>
+        <pre><span class="keyword">new</span> NavSection(menu, <span class="string">&quot;HTML Inside&quot;</span>, <span class="string">&quot;html-section&quot;</span>);</pre>
+        <p>
+          And have the following in your HTML page:
+        </p>
+        <pre><span class="function-name">&lt;</span><span class="html-tag">div</span> <span class="variable-name">id=</span><span class="string">&quot;html-section&quot;</span><span class="function-name">&gt;</span>This is <span class="function-name">&lt;</span><span class="html-tag">b</span><span class="function-name">&gt;</span><span class="html-helper-bold">some</span><span class="function-name">&lt;</span><span class="html-tag">/b</span><span class="function-name">&gt;</span> <span class="function-name">&lt;</span><span class="html-tag">i</span><span class="function-name">&gt;</span><span class="html-helper-italic">HTML</span><span class="function-name">&lt;</span><span class="html-tag">/i</span><span class="function-name">&gt;&lt;</span><span class="html-tag">/div</span><span class="function-name">&gt;</span></pre>
+        <p>
+          The DIV may optionally define a “title” argument.  If
+          present it will replace the section title defined in
+          setupmenu.js.  This is useful if you want to have an HTML
+          section in different pages and want it to have a different
+          title for each page.
+        </p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h3>Closing and generating the menu</h3>
+
+<p>
+  Closing the menu appends the second row of control buttons.  You can
+  achieve this by calling “menu.closeMenu()”.  Then we call
+  “menu.generate()” in order to make the NavBar effectively display in
+  the page.
+</p>
+
+<pre>  menu.closeMenu();
+  menu.generate();</pre>
+
+<p>
+  If you don't call “menu.closeMenu()”, the generate() function will
+  silently call it for you.
+</p>
+
+<h3 id="sticky">Including the “sticky” button</h3>
+
+<p>
+  As well as openMenu(), the functions called above accept 2 optional,
+  boolean arguments: “use_sticky” and “no_hide_arrow”.  If you don't
+  pass them, the defaults are <b>false</b> and <b>false</b> which mean
+  that the control buttons row will not display the “auto-hide”
+  (sticky) button and will display the left arrow that allows one to
+  hide the menu.  For instance, in order to include the sticky icon in
+  the bottom control bar and not include the hide arrow, you need to:
+</p>
+
+<pre>menu.closeMenu(<span class="keyword">true</span>, <span class="keyword">true</span>);</pre>
+
+<p>
+  For convenience, these parameters can be passed to generate()
+  directly, and the call to “closeMenu()” can be missing.
+</p>
+
+<h2>How many sections?</h2>
+
+<p>
+  You can define as many sections as you want.  Just call new
+  NavSection() for each one of them and pass as the first parameter a
+  reference to the NavBar object, as you can see above.
+</p>
+
+<h2>What's the current section?</h2>
+
+<p>
+  The menu implements a simple way of automatically determining the
+  current section.  Basically, if the label of some item starts with
+  “!” (exclamation sign) then that item will be rendered as “active”
+  (selected) and the menu will remember the section that defines that
+  item as the “current” section.  This has impact on operations like
+  “sync”--closes all sections except the current one.
+</p>
+
+<p>
+  In order to define a menu easily and without hard-coding the active
+  section--hard-coding isn't really possible since we want to create a
+  setupmenu.js file able to handle many pages, not just one--we have
+  created a very simple function that we include in our setupmenu.js:
+</p>
+
+<pre><span class="keyword">function</span> <span class="function-name">L</span>(label) {
+  <span class="keyword">if</span> (_NavBar_pageID.toLowerCase() == label.toLowerCase())
+    label = <span class="string">&quot;!&quot;</span> + label;
+  <span class="keyword">return</span> label;
+}</pre>
+
+<p>
+  Note that this function references a variable called
+  “_NavBar_pageID”.  This variable must be externally defined (right
+  in the page, not in setupmenu.js) and it's value should be the label
+  of the item that activates the current page.  Thus, after loading
+  the “navbar.jss” file, you can:
+</p>
+
+<pre><span class="function-name">&lt;</span><span class="html-tag">script</span> <span class="variable-name">type=</span><span class="string">&quot;text/javascript&quot;</span><span class="function-name">&gt;</span>
+  _NavBar_pageID = <span class="string">&quot;License and index&quot;</span>;
+<span class="function-name">&lt;</span><span class="html-tag">/script</span><span class="function-name">&gt;</span></pre>
+
+<p>
+  so that the variable will be defined when the script is loaded.  And
+  now, using the L() function, we can define menu sections like this:
+</p>
+
+<pre><span class="keyword">new</span> NavSection
+  (menu,
+   <span class="string">&quot;Quick start&quot;</span>,
+   [
+     [ L(<span class="string">&quot;License and index&quot;</span>),  <span class="string">&quot;index.html&quot;</span>,     <span class="string">&quot;Index page&quot;</span>,                          <span class="string">&quot;a.png&quot;</span> ],
+     [ L(<span class="string">&quot;Installation notes&quot;</span>), <span class="string">&quot;install.html&quot;</span>,   <span class="string">&quot;How to install NavBar on your site&quot;</span>,  <span class="string">&quot;a.png&quot;</span> ],
+     [ L(<span class="string">&quot;Customization&quot;</span>),      <span class="string">&quot;customize.html&quot;</span>, <span class="string">&quot;How to customize NavBar&quot;</span>,             <span class="string">&quot;a.png&quot;</span> ],
+     [ L(<span class="string">&quot;Technical support&quot;</span>),  <span class="string">&quot;support.html&quot;</span>,   <span class="string">&quot;Contact us for free tech support&quot;</span>,    <span class="string">&quot;a.png&quot;</span> ],
+   ]
+  );</pre>
+
+<p>
+  So as you can see, we simply call the L() function in order to
+  generate the label for the NavBar sections.  If the item is defining
+  the current page, then its label will start with a “!” sign, thanks
+  to the L() function, and this way the item and its section will be
+  active.  This technique is used in our “setupmenu.js” for these
+  documentation pages.
+</p>
+
+<h3>How about HTML sections?</h3>
+
+<p>
+  The careful reader will notice that the above way doesn't work for
+  sections containing plain HTML.  That's because they have no items,
+  so you can't instruct the menu by prepending an exclamation point to
+  item's label, simply because there's no item. :-)
+</p>
+
+<p>
+  If the current section should be HTML-based, you need to set the
+  current section “manually”, by remembering a reference to the
+  NavSection object and passing it to the NavBar object:
+</p>
+
+<pre><span class="keyword">var</span> <span class="variable-name">section</span> = <span class="keyword">new</span> NavSection(menu, ...);
+menu.currentSection = section;</pre>
+
+<h2>Different styles for different sections</h2>
+
+<p>
+  So, let's say you have 3 sections and to make things easier for the
+  end-user you want to assign different background colors to each
+  section.  This is easy to do by assigning a custom CSS class to each
+  section and writing CSS declarations that define styles of those
+  sections.  Following there is an example for one section:
+</p>
+
+<pre><span class="keyword">var</span> <span class="variable-name">section</span> = <span class="keyword">new</span> NavSection(menu, <span class="string">&quot;Section title&quot;</span>, ...);
+section.setClass(<span class="string">&quot;my-custom-section&quot;</span>);</pre>
+
+<p>
+  The above shows how you set the "my-custom-section" class to a
+  certain section.  Now, you can customize it by including some code
+  in your CSS area:
+</p>
+
+<pre>  <span class="variable-name">.menubar</span> <span class="variable-name">.my-custom-section-title</span>,
+  <span class="variable-name">.menubar</span> <span class="variable-name">.my-custom-section</span> <span class="variable-name">.body</span>,
+  <span class="variable-name">.menubar</span> <span class="variable-name">.my-custom-section</span> <span class="variable-name">.body</span> table {
+    <span class="keyword">background-color:</span> <span class="constant">#fff</span>;
+  }</pre>
+
+<p>
+  With the above code, the defined section <em>and</em> its title will
+  always have a white background.
+</p>
+
+<h2>“Toggle tabs”</h2>
+
+<p>
+  These are some images that are displayed in each section, on the
+  right side, and with the proper layout they can remain visible even
+  if the NavBar is hidden.  We have a <a
+  href="samples/sample1.html">demo that shows toggle tabs</a>.
+</p>
+
+<p>
+  It is easy to add these images, provided that you keep a reference
+  to the section object:
+</p>
+
+<pre>  <span class="keyword">var</span> <span class="variable-name">section</span> = <span class="keyword">new</span> NavSection(...);
+  section.addToggleTab(<span class="string">&quot;/path/to/image-1.gif&quot;</span>, <span class="string">&quot;/path/to/image-2.gif&quot;</span>);</pre>
+
+<p>
+  The first image will be displayed when the NavBar is visible, and
+  the second will be displayed when the menu is hidden.
+</p>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

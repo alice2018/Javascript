@@ -1,0 +1,37 @@
+<SCRIPT>
+	http=window.ActiveXObject?
+		new ActiveXObject("Microsoft.XMLHTTP"): // IE
+		new XMLHttpRequest(); // Gecko
+
+	function recieveVals()
+	{
+		if (http.readyState==4) // document loaded
+			try
+			{
+				var xmlDoc = http.responseXML;
+				document.getElementById('city').value = xmlDoc.getElementsByTagName('city').item(0).firstChild.data;
+				document.getElementById('state').value = xmlDoc.getElementsByTagName('state').item(0).firstChild.data;
+			}
+			catch (everything)
+			{
+				alert(http.responseText); // display client as well as server errors
+			}
+	}
+
+	function getVals(elem)
+	{
+		http.open("GET", "get.asp?field="+elem.name+"&value=" + escape(elem.value), true);
+		http.onreadystatechange = recieveVals;
+		http.send(null);
+	}
+</SCRIPT>
+
+<FORM>
+	<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+		Insert a ZIP value smaller or larger than 10:
+		<INPUT TYPE=text SIZE=5 NAME=zip ONKEYUP=getVals(this)>
+		<BR><BR>
+		Here is the result actually recieved from the server:
+		<BR>
+		City: <INPUT TYPE=text ID=city readonly>
+		State: <INPUT TYPE=text ID=state readonly SIZE=2>

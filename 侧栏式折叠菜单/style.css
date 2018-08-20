@@ -1,0 +1,55 @@
+body {
+  background-color: #669;
+  padding: 0px;
+  margin: 0px;
+}
+#aftermenu, #beforemenu {
+  text-align: center; font-style: italic; padding: 10px 0px;
+}
+#page-content {
+  border-left: 1px dashed #000; padding: 1em; background-color: #ddd; margin: 0px;
+}
+.pref {
+  background-color: #ffd;
+}
+.license { width: 100%; clear: both; }
+.license .label {
+  text-align: right; padding-right: 0.5em; font-weight:
+  bold; width: 10em;
+}
+.license input {
+  font-family: monospace;
+  font-size: 90%;
+  width: 100%;
+}
+
+#page-content a:link, #page-content a:visited { color: #00f; }
+#page-content a:hover { color: #f00; }
+
+pre { background-color: #eee; border: 1px dotted #bbb; padding: 5px; }
+
+.step { font-size: 200%; font-family: verdana,sans-serif; font-weight: bold; float: left; padding: 5px
+  5px 5px 5px; margin: 0px 10px; border: 1px solid #aaa; background-color: #fff; }
+
+.string { color: #088; }
+.type { color: #440; }
+.comment { color: #0a0; }
+.keyword { font-weight: bold; color: #00f; }
+.function-name { color: #800; }
+.html-helper-significant-tag { color: #a40; }
+.doctype { color: #808; }
+
+#panel {
+  margin: 0px 0px 1em 1em;
+  float: right;
+  border: 2px solid;
+  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+  background-color: ButtonFace;
+  color: ButtonText;
+  padding: 5px;
+}
+#panel, #panel select {
+  font: 11px tahoma,verdana,sans-serif;
+}
+
+h1 { border-bottom: 1px solid #000; }

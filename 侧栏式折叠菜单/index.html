@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (License and index)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "License and index"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <div id="html-section" title="HTML Inside" style="display: none; text-align: center; color: black">
+      <br />
+      <b>Have an account?</b>
+      <table style="color: black">
+        <tr>
+          <td style="text-align: right">User:</td>
+          <td><input size="10" type="text" /></td>
+        </tr>
+        <tr>
+          <td style="text-align: right">Pass:</td>
+          <td><input size="10" type="password" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" value="Login" />
+          </td>
+        </tr>
+      </table>
+      <br />
+      <b>No account?</b>
+      <a style="color: blue" href="#">Register!</a>
+      <br /><br />
+    </div>
+
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+<h1 style="margin: 0px">Dynarch Navigation Bar</h1>
+
+<ul>
+  <li><a href="install.html">Installation notes</a> &mdash; how to install in your website.</li>
+  <li><a href="customize.html">Customization</a> &mdash; changing the look and feel.</li>
+  <li><a href="support.html">Support</a> &mdash; if anything goes wrong, contact us.</li>
+</ul>
+
+<h2>License</h2>
+
+<p><a href="license.html" target="_blank" title="opens new window"
+>Please read the license text here</a>.</p>
+
+<h2 style="margin: 0px">NavBar Overview</h2>
+
+<p>Our DHTML Navigation Bar is a multi-purpose DHTML “widget” similar
+to the Windows XP Explorer menus (<a href="samples/winxp.html">see
+sample</a>).</p>
+
+<h2>Features</h2>
+
+<ul>
+
+  <li>Supports a broad <a href="#browsers">range of browsers</a>.</li>
+
+  <li>It looks good.  Besides that, the look is customizable by only
+  changing a CSS file&mdash;no need to mess with JavaScript code.</li>
+
+  <li>The end user can collapse/expand the menu sections as he
+  needs.</li>
+
+  <li>Relies on web standards.  It does not rely on proprietary
+  browser features, while it makes use of some if they are
+  available.</li>
+
+  <li>Provides high quality animation and fade-in/fade-out effects.
+  If not wanted, the animation can be disabled, either completely or
+  on certain levels.</li>
+
+  <li>Menu sections can embed plain HTML code.</li>
+
+  <li>Items can execute custom JavaScript code on click.</li>
+
+  <li>When the menu is hidden it enlarges the space available for
+  the rest of the page.</li>
+
+  <li>It remembers its state in a cookie and automatically restores
+  it when the end-user revisits the page.  Thus the developer
+  doesn't need to do this on the server-side.</li>
+
+  <li>2 work modes: allows multiple section to be expanded, or only
+  one expanded section at a time.</li>
+
+  <li>Certain preferences can be configured without reloading and
+  recreating the menu (therefore without a page reload).  They
+  will be saved in the cookie.</li>
+
+  <li>Allows icons for each menu option. If an icon is not present
+  it is replaced by '»'.</li>
+
+  <li>Allows PNG icons with alpha-opacity.  Yes, in IE too.</li>
+
+  <li>Can display tooltips.</li>
+
+  <li>Does not use frames.</li>
+
+  <li>Reduces the size of your page, as the code that creates the
+  menu can be put inside a JavaScript file which is thereafter
+  cached by the browser.</li>
+
+  <li>The menu can be dynamically (at page view time) generated from
+  a server-side script.</li>
+
+</ul>
+
+<h2 id="browsers">Browser support</h2>
+
+<ul>
+  <li>Internet Explorer 6.0 for Windows -- excellent support</li>
+  <li>Internet Explorer 5.5 for Windows -- good support</li>
+  <li>Internet Explorer 5.0 for Windows -- functional, no PNG-s</li>
+  <li>Mozilla, Firefox, other <i>Gecko</i>-s (any platform) -- excellent support</li>
+  <li>Opera 7 (any platform) -- very good support, no fading</li>
+  <li>Apple Safari for MacOSX -- excellent support</li>
+  <li>Konqueror for Linux -- good support</li>
+</ul>
+
+<p>Because most web browsers, even new ones, work by default in a
+compatibility mode (also known as QUIRKS mode) in order to be able
+to display old pages correctly, NavBar requires your pages to
+declare a strict DOCTYPE.  This instructs browsers to switch to
+standards-compliance mode.  NavBar will not be functional in
+QUIRKS mode.</p>
+
+
+
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

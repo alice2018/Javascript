@@ -1,0 +1,17 @@
+<html>
+<head>
+<script>
+function openDialog()
+{
+      var left = screen.width/2 - 340/2;
+      var top = screen.height/2 - 350/2;
+	window.open('dialog.html','dialog','modal=1,left=' + left + ',top=' + top + ',height=350,width=330,resizable=0,status=0,scrollbars=0');
+}
+</script>
+</head>
+<body style="margin: 20px">
+<div style="font-family: arial;font-size:12px;">Create desktop like dialogs:</div>
+<br>
+<input type="button" value="Open Dialog Window" onclick="openDialog()">
+</body>
+</html>

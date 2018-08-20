@@ -1,0 +1,73 @@
+<html>
+<head>
+<script>
+
+function tabCreate(objTab,id)
+{
+	
+	objTab.design      = "1";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "IMAGE";
+	objTab.tabMode     = "2"; // set to scrolling mode
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	item.active = true;
+	item.url = "../evaluation/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Common 2";
+	item.title = "Common 2";
+	item.active = false;
+	item.url = "../evaluation/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options 2";
+	item.title = "Options 2";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc 2";
+	item.title = "Misc 2";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+
+</script>
+</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<div style="font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 30px; POSITION: absolute; TOP: 25px">Simple demo with "Image" (Windows XP) style:</div>
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 30px; WIDTH: 200px; POSITION: absolute; TOP: 50px; HEIGHT: 200px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+	</body>
+</html>

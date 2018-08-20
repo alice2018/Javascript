@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (Changing the look)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "Changing the look"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+<h1>Customizing the way it looks</h1>
+
+<p>
+  NavBar look is defined through a CSS file.  Presently, the default
+  distribution contains a base skin (navbar.css) and a pretty complex
+  one (<a href="samples/winxp.html">WinXP theme</a>).  In order to be
+  able to customize the look you need to understand how CSS works and
+  how the NavBar layout is defined.
+</p>
+
+<p>
+  When NavBar is generated, it takes the element whose ID was passed
+  to the constructor (the “content” <tt>div</tt>) and inserts the
+  NavBar elements there, creating a DOM structure like this (we
+  present tag names <span class="keyword">like this</span> and class
+  names [<span class="string">like this</span>]):
+</p>
+
+<ul>
+  <li>
+    <tt class="keyword">div</tt> [<span class="string">menuholder</span>]
+    -- a toplevel DIV that contains all NavBar elements
+    <ul>
+      <li>
+        <tt class="keyword">div</tt> [<span class="string">menubar</span>]
+        -- another DIV, required for proper layout in IE
+        <ul>
+          <li>
+            <tt class="keyword">table</tt> [<span class="string">control</span>]
+            -- this is a one-row table that contains the control buttons
+            <ul>
+              <li>
+                <tt class="keyword">tbody</tt>
+                <ul>
+                  <li>
+                    <tt class="keyword">tr</tt>
+                    <ul>
+                      <li>
+                        <tt class="keyword">td</tt> [<span class="string">btnholder</span>]
+                        -- contains one single control button
+                        <ul>
+                          <li><tt class="keyword">img</tt> [<span class="string">img button</span>]</li>
+                        </ul>
+                      </li>
+                      <li>
+                        ... (more <tt>td.btnholder</tt>-s)
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <tt class="keyword">div</tt> [<span class="string">space</span>] -- a spacer DIV
+          </li>
+          <li>
+            <tt class="keyword">table</tt> [<span class="string">title</span>] -- menu section title
+            <ul>
+              <li>
+                <tt class="keyword">tbody</tt>
+                <ul>
+                  <li>
+                    <tt class="keyword">tr</tt>
+                    <ul>
+                      <li>
+                        <tt class="keyword">td</tt> -- holds the section title text
+                      </li>
+                      <li>
+                        <tt class="keyword">td</tt> -- holds the expand/collapse button
+                        <ul>
+                          <li>
+                            <tt class="keyword">img</tt> [<span class="string">img</span>] -- expand/collapse button img
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <tt class="keyword">div</tt> [<span class="string">section</span>] -- menu section contents
+            <ul>
+              <li>
+                <tt class="keyword">div</tt> [<span class="string">body</span>] -- section body
+                <ul>
+                  <li>
+                    <tt class="keyword">table</tt> -- items are in a table
+                    <ul>
+                      <li>
+                        <tt class="keyword">tbody</tt>
+                        <ul>
+                          <li>
+                            <tt class="keyword">tr</tt> [<span class="string">item</span>] -- an item in a section
+                            <ul>
+                              <li>
+                                <tt class="keyword">td</tt> [<span class="string">image</span>]
+                                -- holds the item's icon or the default “»”
+                                <ul>
+                                  <li>
+                                    <tt class="keyword">img</tt> [<span class="string">img</span>] -- item icon, if defined
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <tt class="keyword">td</tt> -- item label
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            ... (more <tt>div.space</tt>-s, <tt>table.title</tt> and <tt>div.section</tt>-s)
+          </li>
+          <li>
+            ... (then again the <tt>div.space</tt> and <tt>table.control</tt> that closes the menu)
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>
+  Whatever was present in the “content” <tt>div</tt> is embedded in a
+  second <tt>div</tt>--therefore, the full page contents is now a DIV
+  which contains 2 DIV-s: one is “menuholder” and the other is a DIV
+  that embeds your page content.
+</p>
+
+<h2>Writing your skin</h2>
+
+<p>
+  The recommended way to customize the look is to write your own CSS
+  file that first thing imports the original NavBar file then
+  customizes whatever is appropriate.  Doing this grants you some
+  benefits, for instance, when you want to upgrade your NavBar
+  installation you can do it easy because you don't modify the
+  original sources, and secondly, you have all the padding and spacing
+  properly defined in the original CSS file so you don't need to mess
+  with it (unless you really need it).
+</p>
+
+<p>
+  So, your CSS file should be located some place outside the NavBar
+  installation dir (“/navbar/”) and it should start like this:
+</p>
+
+<pre><span class="keyword">@import</span> url(<span class="string">&quot;/navbar/navbar.css&quot;</span>);</pre>
+
+<p>
+  This gets you all the goodies defined in the main file.  Then, in
+  order to customize, say, the background color for the toplevel
+  NavBar DIV, you would write:
+</p>
+
+<pre><span class="variable-name">.menuholder</span> {
+  <span class="keyword">background-color:</span> <span class="constant">#fff</span>; <span class="comment">/* make it white */</span>
+}</pre>
+
+<p>
+  If you want the NavBar to be a bit wider (i.e. 200 pixels), you can:
+</p>
+
+<pre><span class="variable-name">.menuholder</span> {
+  <span class="keyword">width:</span> 200px; <span class="comment">/* the default is 160px */</span>
+}</pre>
+
+<p>
+  Now experiment! :-)  Customizing the look is easy.
+</p>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

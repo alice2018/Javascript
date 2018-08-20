@@ -1,0 +1,22 @@
+<script src=drag.js></script>
+
+<body onDragStart="self.event.returnValue=false;self.event.cancelBubble=true;">
+	
+	<font face="Verdana, Arial, Helvetica" size=2>
+		Try to move the icons! There are three different ways.
+	</font>
+	
+	<!-- both are independent draggable because the "dragme" attribute -->
+	<div dragme style="position:absolute;left:50;top:50;width:40;height:40;background-color:blue" onselectstart="return false"></div>
+	<img dragme style="position:absolute;left:80;top:80;-moz-user-select:none" onmousedown="return false" src=smilie.gif>
+	
+	<!-- the image belongs to the div but both are draggable -->
+	<div dragme style="position:absolute;left:150;top:50;width:40;height:40;background-color:green" onselectstart="return false">
+		<img dragme style="position:absolute;left:45;top:10;-moz-user-select:none" onmousedown="return false" src=smilie.gif>
+	</div>
+
+	<!-- only the div is draggable--also if you drag the image -->
+	<div dragme style="position:absolute;left:250;top:50;width:40;height:40;background-color:red" onselectstart="return false">
+		<img onmousedown="return false" widht=20 height=6 src=../../winlike/winman/trans.gif>
+		<img onmousedown="return false" src=smilie.gif>
+	</div>

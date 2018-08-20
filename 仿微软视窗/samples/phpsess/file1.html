@@ -1,0 +1,14 @@
+
+<SCRIPT src="../../winlike/winman/winxtra.js"></SCRIPT>
+<!-- Set the focus (cursor is blinking) to the first INPUT field.
+     Btw. without this, formulars in IE will sometimes not work! -->
+<BODY onLoad="formfocusWinLIKE_()">
+	
+	<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+	
+		Send a session variable to the server:
+		<BR>
+		<form id=form1 action="file2.php" method=post onSubmit="return submitWinLIKE_(event)">
+			<input name=test type=text value="it works">
+			<input type=submit name=widget value=submit>
+		</form>

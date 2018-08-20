@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>My Dialog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</title>
+<script>
+
+var tab = null;
+function tabCreate(objTab,id)
+{
+	
+	tab = objTab; // for later use
+	
+	objTab.design      = "1";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "IMAGE";
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	item.active = true;
+	item.url = "../evaluation/samples/dialog/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	item.active = false;
+	item.url = "../evaluation/samples/dialog/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	item.active = false;
+	item.url = "../evaluation/samples/dialog/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+function getParam()
+{
+	var aItems = tab.getTabItems();
+	for(var i=0;i<aItems.length;i++) {
+		var curItem = aItems[i];
+		alert("Value of Param " + (i +1) + ": " + curItem.getDocument().getElementById("txtParam" + (i + 1)).value)
+	}
+}
+
+function tabEventTabClick(item)
+{
+	try {
+		// get index
+		idx = item.index + 1;
+		// set focus
+		item.getDocument().getElementById("txtParam" + idx).focus(); 
+	} catch(Error) {}
+}
+</script>
+</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 15px; WIDTH: 300px; POSITION: absolute; TOP: 15px; HEIGHT: 300px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+		<div style="width: 150px; font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 173px; POSITION: absolute; TOP: 320px">
+			<input type="button" value="OK" style="width: 70px" onclick="getParam();window.close()">
+			<input type="button" value="Cancel"  style="width: 70px"  onclick="window.close()">
+		</div>
+	</body>
+</html>

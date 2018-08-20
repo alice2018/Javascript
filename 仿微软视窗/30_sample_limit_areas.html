@@ -1,0 +1,88 @@
+<!-- WinLIKE (c) 1998-2004 by CEITON technologies GmbH - www.winlike.net -->
+
+<!-- Change this source for older browsers! --><SCRIPT>WinLIKEerrorpage='winlike/winman/hlp-error.html';</SCRIPT>
+<SCRIPT SRC="winlike/winman/wininit.js"></SCRIPT><SCRIPT SRC="winlike/winman/winman.js"></SCRIPT>
+<!-- Delete this line, if the editor should not be used anymore. --><SCRIPT SRC="winlike/winedit/winedit.js"></SCRIPT>
+
+<!-- this code handles the limitping functionality - change it as you like -->
+<SCRIPT SRC="samples/limit/limit.js"></SCRIPT>
+
+<!-- WinLIKE Window-Definitions -->
+<SCRIPT>
+	// array definitions for the areas (left top and right bottom)
+	limitpoint_x1=new Array();
+	limitpoint_y1=new Array();
+	limitpoint_x2=new Array();
+	limitpoint_y2=new Array();
+
+	// definition of limit area 1
+	limitpoint_x1[1]=350;
+	limitpoint_y1[1]=100;
+	limitpoint_x2[1]=490;
+	limitpoint_y2[1]=590;
+	// definition of limit area 2
+	limitpoint_x1[2]=150;
+	limitpoint_y1[2]=275;
+	limitpoint_x2[2]=690;
+	limitpoint_y2[2]=395;
+	// definition of limit area 3
+	//limitpoint_x1[3]=180;
+	//limitpoint_y1[3]=100;
+	//limitpoint_x2[3]=320;
+	//limitpoint_y2[3]=590;
+
+	// amount of limit areas
+	var limitareas=limitpoint_x1.length;
+	// limitping area around the limit points
+	var limitspace=20;
+	
+	WinLIKE.definewindows=mydefs;
+	function mydefs()
+	{
+		var j=new WinLIKE.window('limit X',limitpoint_x1[1],150,limitpoint_x2[1]-limitpoint_x1[1],200,1);
+		j.Cls=false;
+		j.HD=false;
+		j.onEvent='limit_events' //call on every WinLIKE event this function
+		j.limit=1; // this is not a WinLIKE property; indicates, that x coordinate is not changable
+		j.skinTitleHeight=21; // this is not a WinLIKE property; we need it to limit the y-moving (see wm-window.html for the exact height value of the title)
+		WinLIKE.addwindow(j);
+
+		var j=new WinLIKE.window('limit Y',230,limitpoint_y1[2],200,limitpoint_y2[2]-limitpoint_y1[2],2);
+		j.Cls=false;
+		j.HD=false;
+		j.onEvent='limit_events' //call on every WinLIKE event this function
+		j.limit=2; // this is not a WinLIKE property; indicates, that y coordinate is not changable
+		WinLIKE.addwindow(j);
+	}
+
+	// WinLIKE window event handler
+	function limit_events(win, what) {
+		if (win.limit) // change this to specify different behavior for the windows
+		{
+			if      (what== 2) { return limit_restore(win);     } // restore after minimizing
+			else if (what== 9) { return limit_resizing(win);    } // resizing end
+			else if (what==14) { return limit_resizing(win);    } // resizing
+			else if (what==15) { return limit_moving(win);      } // moving
+		}
+	}
+
+</SCRIPT>
+
+
+<!-- Do not delete the following four lines! -->
+<BODY onLoad='WinLIKE.init();limit_visual();' onResize=WinLIKE.resizewindows() bgColor=#DDDDDD>
+	<!-- Don't remove this line!--><IMG ID=ih_ SRC="skins/trans.gif" style="z-Index:4000;position:absolute;left:0;top:0;width:100%;height:100%">
+	<!-- You can change this loading picture! --><IMG ID=ig_ SRC="winlike/winman/load.gif" STYLE="position:absolute;left:35%;top:40%;z-Index:4001">
+	
+	<!-- Insert your page-content here! -->
+	<DIV STYLE="position:absolute;left:110;top:15">
+		<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+			Here we show how one can manipulate the window moving and resizing. In this sample
+			we limit two windows to the X- and Y-axis.<BR>
+			With this possibilities you can develop a lot of different behaviors by yourself.
+			Just see the sourcecode (samples/limit/limit.js) to get your stating point.
+			<BR><BR>
+		</FONT>
+	</DIV>
+
+	

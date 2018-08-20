@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (Customization)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "Customization"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+        <h1 style="margin: 0px">NavBar Customization</h1>
+
+        <p>The look is completely customizable by changing the CSS file.  Aside for
+          this, there are several customization options that require a bit of
+          JavaScript code.  Supposing you created the menu with the following
+          command:</p>
+
+        <pre
+><span class="keyword">var</span> <span class="variable-name">menu</span> = <span class="keyword">new</span> NavBar(<span class="string">&quot;content&quot;</span>);</pre>
+
+        <p>You can modify the following customization options:</p>
+
+        <ol>
+
+          <li>
+
+            <p class="pref">
+              <code>menu.prefs["animation"] = 0 | 1 | 2 | 3</code></p>
+
+            <p>The meaning is "0" for no animation at all, "1" for
+              section-only animation, "2" for menu-bar animation and "3" for
+              "bloat" animation (when hiding the menu the whole page will
+              animate).  I strongly recommend "2" (the default value).</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["mono-section"] = <b>true</b> |
+                <b>false</b></code></p>
+
+            <p>When mono-section is <b>true</b> only one section will be visible
+              at a time.  Selecting another section will hide the currently
+              visible onle.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["generate-anim"] = <b>true</b> |
+                <b>false</b></code></p>
+
+            <p>If this is true then the menu will be shown animated at
+              start-time.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["auto-hide"] = <b>true</b> |
+                <b>false</b></code></p>
+
+            <p>If this is true then the menu will be an "auto-hide" menu,
+              meaning then when the mouse cursor lefts the menu area the
+              menu will automatically hide.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["tooltips"] = <b>true</b> |
+                <b>false</b></code></p>
+
+            <p>If true (default) then the navigation bar will provide
+              tooltips.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["icon-width"] = 20</code><br />
+              <code>menu.prefs["icon-height"] = 14</code>
+            </p>
+
+            <p>Allows you to configure the dimension of the icons.  If you
+              provide images with different dimensions then they will be
+              scaled to meet the requirements configured with the above
+              lines.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["link-prefix"] = "/foo/bar/"</code></p>
+
+            <p>If this option is set then all links that the menu points to
+              will have the given prefix (for instance "/foo/bar/").</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["cookie-path"] = "/bar/foo/"</code></p>
+
+            <p>Sets the path for the cookie that the menu stores.  The
+              cookie is used to remember the menu state on subsequent
+              requests.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["cookie-exp"] = 15</code></p>
+
+            <p>Configures a cookie expiration time.  If none set (default)
+              then the cookie will expire when the browser is closed (at end
+              of session).  The example above instructs the cookie to expire
+              in 15 days.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["link-target"] = "_blank"</code></p>
+
+            <p>Sets the target for the links in the menu.  This should be a
+              frame name.  Don't set if you want all links to open in the
+              current window/frame.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["nb-frames"] = 15</code><br />
+              <code>menu.prefs["ns-frames"] = "auto"</code>
+            </p>
+
+            <p>The number of frames for the navigation bar (nb-) or section
+              (ns-) animation.  The higher this number is, the slower the
+              animation.  If "auto" (default) is set for ns-frames then the
+              number of frames is computed based on the section height.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["nb-fps"] = 45</code><br />
+              <code>menu.prefs["ns-fps"] = 100</code>
+            </p>
+
+            <p>The number of frames per second that the bar (nb-) or section
+              (ns-) animation will show.  The higher this number, the smoother
+              the animation but higher load on the CPU.  The default values
+              should be okay for most systems.</p>
+
+          </li>
+
+          <li>
+
+            <p class="pref"><code>menu.prefs["home-href"] = "http://dynarch.com/mishoo/menubar.epl"</code><br />
+              <code>menu.prefs["home-title"] = "NavBar project page"</code><br />
+              <code>menu.prefs["home-text"] = "NavBar"</code>
+            </p>
+
+            <p>This preference option allows you to customize the link that
+              appears in the menu header/footer and its tooltip.  The example
+              above shows the default options.</p>
+
+          </li>
+
+          <li>
+            <p class="pref"><code>menu.prefs["no-controls"] = false</code></p>
+
+            <p>
+              Set this to <b>true</b> in order to hide the "global menu
+              controls", that is, the "+", "-" buttons that operate on
+              all sections, and the left/right arrows that close/open
+              the menu.
+            </p>
+          </li>
+
+          <li>
+            <p class="pref"><code>menu.prefs["no-disable"] = false</code></p>
+
+            <p>
+              If you set this to <b>true</b> then NavBar won't disable
+              the current item.  If you want the current item to look
+              active but not be disabled, pass "item-disabled" (or a
+              custom string) here and that item will gain the
+              additional string in the class name.  Using this you can
+              define a custom look for it in the CSS.  "item-disabled"
+              is the default class name defined in <tt>navbar.css</tt>
+              and makes the item look "active".
+            </p>
+          </li>
+
+          <li>
+            <p class="pref">
+              <code>menu.prefs["fewer-hover"] = true</code><br />
+              <code>menu.prefs["no-item-hover"] = true</code>
+            </p>
+
+            <p>
+              Controls the amount of "mouseover" effects.  In certain
+              occasions, you might not want hover effects, so you can
+              disable them here.  If you set "fewer-hover" to true
+              then only menu items will have mouseover effects.  If
+              you set "no-item-hover" to true then no mouseover
+              effects will be defined on items.  Set them both true if
+              you wish to disable all mouseover-s.
+            </p>
+          </li>
+
+        </ol>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

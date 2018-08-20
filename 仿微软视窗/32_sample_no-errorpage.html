@@ -1,0 +1,44 @@
+<!-- WinLIKE (c) 1998-2005 by CEITON technologies GmbH - www.winlike.net -->
+
+
+<!-- You can set this string to null to avoid a page redirect -->
+<SCRIPT>WinLIKEerrorpage=null;</SCRIPT>
+
+
+<SCRIPT SRC="winlike/winman/wininit.js"></SCRIPT><SCRIPT SRC="winlike/winman/winman.js"></SCRIPT>
+<!-- Delete this line, if the editor should not be used anymore. --><SCRIPT SRC="winlike/winedit/winedit.js"></SCRIPT>
+
+
+<!-- WinLIKE Window-Definitions -->
+<SCRIPT>
+	WinLIKE.definewindows=mydefs;
+	function mydefs()
+	{
+		var j=new WinLIKE.window('Demo',150,87,708,165,13);
+		j.Ski='light';
+		j.Adr='samples/test.html';
+		WinLIKE.addwindow(j);
+	}
+	
+	WinLIKE.onload=wrongBrowser;
+	function wrongBrowser()
+	{	
+		if (WinLIKE.ie==null)
+			alert("No WinLIKE compatible browser!");
+	}
+
+</SCRIPT>
+
+
+<!-- Do not delete the following four lines! -->
+<BODY onLoad='WinLIKE.init();' onResize=WinLIKE.resizewindows()>
+	<!-- Don't remove this line!--><IMG ID=ih_ SRC="skins/trans.gif" style="z-Index:4000;position:absolute;left:0;top:0;width:100%;height:100%">
+	<!-- You can change this loading picture! --><IMG ID=ig_ SRC="winlike/winman/load.gif" STYLE="position:absolute;left:35%;top:40%;z-Index:4001">
+	
+	<!-- Insert your page-content here! -->
+	<DIV STYLE="position:absolute;left:110;top:15">
+		<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+			If your page works also without the WinLIKE windows, you can avoid the page redirect
+			in the case of incompatible browser usage by using WinLIKEerrorpage=null. Just see this sourcefile.
+		</FONT>
+	</DIV>

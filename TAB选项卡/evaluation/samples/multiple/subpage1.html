@@ -1,0 +1,49 @@
+<html>
+<head>
+<script>
+
+function tabCreate(objTab,id)
+{
+	objTab.design      = "8";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "COLOR";
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	item.active = true;
+	item.url = "../evaluation/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+
+</script>
+</head>
+	<body style="margin:0;overflow:hidden;BACKGROUND-COLOR: #ece9d8">
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 0px; WIDTH: 100%; POSITION: absolute; TOP: 0px; HEIGHT: 100%"
+			src="../../../tab/pinTab.html?a=1&id=tab" frameBorder="0"></iframe>
+	</body>
+</html>

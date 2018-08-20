@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (Technical support)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "Technical support"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+        <h1 style="margin: 0px">NavBar Limited Tech. Support</h1>
+
+
+        <p>
+          Technical support is available only to licensed users.
+        </p>
+
+        <p>
+          To purchase a license please <a
+          href="http://dynarch.com/mishoo/menubar.epl">visit the product
+          page</a> and choose one of the available licenses.
+        </p>
+
+
+        <div style="height: 600px"></div>
+
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

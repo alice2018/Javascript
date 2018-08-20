@@ -1,0 +1,101 @@
+<html>
+<head>
+<script>
+var tab;
+function tabCreate(objTab,id)
+{
+	tab = objTab;
+
+	objTab.design      = "1";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "IMAGE";
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	item.active = true;
+	item.url = "../evaluation/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+function getActiveTab()
+{
+	alert(tab.getActiveTab());
+}
+
+function getActiveTabItem()
+{
+	alert("URL of current tab: " + tab.getActiveTabItem().url);
+}
+
+function setActiveTab()
+{
+	tab.setActiveTab(1);
+}
+
+function getActiveTabDocument()
+{
+	var doc = tab.getActiveTabDocument();
+	doc.body.style.backgroundColor = "red";
+}
+
+function getItems()
+{
+	var items = tab.getItems();
+	alert("Number of tab items: " + items.length);
+}
+
+function disableTab()
+{
+	var item = tab.getTabItemByIndex(1);
+	item.setEnabled(false);
+}
+
+function unvisibleTab()
+{
+	var item = tab.getTabItemByIndex(2);
+	item.setVisible(false);
+}
+
+
+</script>
+</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<div style="font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 30px; POSITION: absolute; TOP: 25px">Simple demo with "Image" (Windows XP) style:</div>
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 30px; WIDTH: 300px; POSITION: absolute; TOP: 50px; HEIGHT: 300px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 30px">Client Functions:</div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 50px"><a href="javascript: getActiveTab()">Get active tab</a></div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 70px"><a href="javascript: setActiveTab()">Set active tab (1)</a></div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 90px"><a href="javascript: getActiveTabItem()">Get active tab item</a></div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 110px"><a href="javascript: getActiveTabDocument()">Get document of active tab (set background color to red)</a></div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 130px"><a href="javascript: getItems()">Get tab items and alert count</a></div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 150px"><a href="javascript: disableTab()">Disable Tab 2</a></div>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 170px"><a href="javascript: unvisibleTab()">Set Tab 3 invisible</a></div>
+
+	</body>
+</html>

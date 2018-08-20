@@ -1,0 +1,51 @@
+<html>
+<head>
+<script>
+
+function tabCreate(objTab,id)
+{
+	
+	objTab.design      = "3";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "COLOR";
+	
+	var item = objTab.createItem();
+	item.text = "View";
+	item.title = "View";
+	item.active = true;
+	item.url = "../evaluation/samples/multiple/subpage1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Settings";
+	item.title = "Settings";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Extras";
+	item.title = "Extras";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+
+</script>
+</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<div style="font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 30px; POSITION: absolute; TOP: 25px">Multiple Tabs cascaded:</div>
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 30px; WIDTH: 300px; POSITION: absolute; TOP: 50px; HEIGHT: 300px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+	</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
+    <title>Advanced sample</title>
+    <script type="text/javascript">
+      /* declare the URL to navbar */
+      _NavBar_url = "../navbar/";
+      _NavBar_icons_url = "../navbar/themes/winxp/";
+    </script>
+    <!-- include the main script -->
+    <script type="text/javascript" src="../navbar/navbar.jss"></script>
+
+    <script type="text/javascript">//<![CDATA[
+      function initDocument() {
+        var menu = new NavBar(document.getElementById("content"));
+        menu.prefs["no-controls"] = true;
+        menu.openMenu();
+        menu.currentSection = new NavSection(menu, "Section 1",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ],
+                       [ "Item 5", "#", null, null, null ],
+                       [ "Item 6", "#", null, null, null ]
+                       ]);
+
+        new NavSection(menu, "Section 2",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ]
+                       ]);
+
+        new NavSection(menu, "Section 3", "div-sec3");
+
+        new NavSection(menu, "Section 2",
+                       [
+                       [ "Item 1", "#", null, null, null ],
+                       [ "Item 2", "#", null, null, null ],
+                       [ "Item 3", "#", null, null, null ],
+                       [ "Item 4", "#", null, null, null ],
+                       [ "Item 5", "#", null, null, null ],
+                       [ "Item 6", "#", null, null, null ],
+                       [ "Item 7", "#", null, null, null ]
+                       ]);
+
+        menu.closeMenu(true, true);
+        menu.generate();
+        menu.prefs["mono-section"] = false;
+        // menu.sync();
+
+        function do_stuff() {
+          for (var i = 0; i < menu.sections.length; ++i) {
+            var sec = menu.sections[i];
+            var v = Math.floor(Math.random() * 10);
+            if (v > 4) {
+              sec.hide();
+            } else {
+              sec.show();
+            }
+          }
+          setTimeout(do_stuff, 100 + 500 * Math.random());
+        };
+
+        setTimeout(do_stuff, 250);
+      }
+    //]]></script>
+
+    <style type="text/css">
+      @import url("../navbar/themes/winxp/skin.css");
+      body { background-color: #84a6ef; color: #fff; }
+    </style>
+
+  </head>
+
+  <body onload="initDocument()">
+    <div id="div-sec3" style="color: #000">
+      <b>Blah blah</b><br />
+      » Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
+        diam nonummy nibh euismod tincidunt ut laoreet dolore magna
+        aliquam erat volutpat. Ut wisi enim ad minim veniam, quis.
+    </div>
+    <div id="content">
+      <h1>Can you click anything?</h1>
+    </div>
+  </body>
+</html>
+

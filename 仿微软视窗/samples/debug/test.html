@@ -1,0 +1,16 @@
+
+<SCRIPT SRC="../../winlike/winman/winxtra.js"></SCRIPT>
+<SCRIPT>
+	function onclosefunc()
+	{
+		parent.setTimeout("WinLIKE.windows["+getWindowNumber_()+"]=null;",100); // destroy window after it is closed
+		return true; // allow closing
+	}
+</SCRIPT>
+
+
+<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+	Close me to destroy me!
+
+
+

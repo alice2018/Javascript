@@ -1,0 +1,43 @@
+<!-- WinLIKE - Copyright (c) 1998-2005 by CEITON technologies GmbH - www.winlike.net -->
+<SCRIPT>WinLIKEerrorpage='winlike/winman/hlp-error.html';</SCRIPT>
+<SCRIPT SRC="winlike/winman/wininit.js"></SCRIPT><SCRIPT SRC="winlike/winman/winman.js"></SCRIPT>
+
+<script>
+  WinLIKE.definewindows=mydefs;
+  function mydefs()
+  {
+    var j=new WinLIKE.window('',10,80,330,350);
+    j.Ed=false;
+    j.HD=false;
+    j.Adr='samples/history/0.html';
+    WinLIKE.addwindow(j);
+  
+    var j=new WinLIKE.window('',410,190,230,250);
+    j.Ed=false;
+    j.LD=false;
+    j.Siz=false;
+    //j.SD=false;
+    j.Ski='light';
+    j.Adr="samples/history/1.html";
+    WinLIKE.addwindow(j);
+  }
+</script>
+
+
+<BODY onResize=WinLIKE.resizewindows() onload=WinLIKE.init() onDragStart="self.event.returnValue=false;">
+	<!-- Don't remove this line! --><IMG ID=ih_ SRC="skins/trans.gif" style="z-Index:4000;position:absolute;left:0;top:0;width:100%;height:100%">
+	<!-- You can change this loading picture! --><IMG ID=ig_ SRC="winlike/winman/load.gif" STYLE="position:absolute;left:35%;top:40%;z-Index:4001">
+
+	<!-- Insert your page-content here! -->
+
+	
+	<DIV STYLE="position:absolute;left:110;top:15">
+		<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+		This page demonstrates that a WinLIKE-window can have its own history. Click the links in the blue window and then go back with the little arrow at the top
+		of the skin!
+		<BR>
+		If you use WinLIKE for applications with FORM-Submits, it's better to deactivate the history functionality.
+		</FONT>
+	</DIV>
+	
+	

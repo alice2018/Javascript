@@ -1,0 +1,60 @@
+<html>
+<head>
+<script>
+
+function tabCreate(objTab,id)
+{
+	
+	objTab.design      = "1";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "IMAGE";
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	item.active = true;
+	item.url = "../evaluation/p1scroll.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	item.active = false;
+	item.url = "../evaluation/p2scroll.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	item.active = false;
+	item.url = "../evaluation/p3scroll.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+
+</script>
+</head>
+	<body style="margin: 10px; overflow:hidden;BACKGROUND-COLOR: #ece9d8">
+		<table width="100%" height="100%" border=0>
+		  <tr>
+		    <td height="1%"><div style="font-family: arial;font-size:12px;">The tabstrip is resized if browser is resized:</div>
+		    </td>
+		  </tr>
+		  <tr>
+		    <td>
+		<iframe id="tab" style="WIDTH: 100%; HEIGHT: 100%"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+		    </td>
+		  </tr>
+		</table>
+	</body>
+</html>

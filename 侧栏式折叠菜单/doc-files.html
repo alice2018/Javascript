@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (NavBar files)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "NavBar files"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+<h1>NavBar files</h1>
+
+<p>
+  As you can see from our <a href="install.html">installation
+  page</a>, in order to setup NavBar you need to load one JavaScript
+  file and one CSS file from your browser.  In this page we discuss it
+  again with a little more detail.
+</p>
+
+<h2>Distribution files</h2>
+
+<p>
+  The NavBar distribution archive contains the following files:
+</p>
+
+<ul>
+  <li>
+    <tt><a href="navbar/" title="Open this folder in a new window" target="_blank">navbar/</a></tt>
+    -- the main directory; you need to copy this on
+    your server.  The other files are samples and documentation.
+    <ul>
+      <li>
+        <tt>navbar.jss</tt> -- the main NavBar file.  You need to
+        include this in your pages with a &lt;script&gt; tag.
+      </li>
+      <li>
+        <tt><a href="navbar/navbar.css" type="text/plain" target="_blank" title="Open this file in a new window">navbar.css</a></tt>
+        -- the main CSS file.  You need to include
+        this in your pages with a &lt;link&gt; or &lt;style&gt; tag.
+      </li>
+      <li>
+        <tt><a href="navbar/icons/" target="_blank" title="Open this folder in a new window">icons/</a></tt>
+        -- a folder containing default icons for the
+        NavBar control buttons.
+        <ul>
+          <li>
+            <img align="middle" src="navbar/icons/arrow-down.png" alt="arrow-down.png" />
+            <tt>arrow-down.png</tt> -- the “down” arrow.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/arrow-left.png" alt="arrow-left.png" />
+            <tt>arrow-left.png</tt> -- the “left” arrow.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/arrow-right.png" alt="arrow-right.png" />
+            <tt>arrow-right.png</tt> -- the “right” arrow.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/arrow-up.png" alt="arrow-up.png" />
+            <tt>arrow-up.png</tt> -- the “up” arrow.
+          </li>
+          <li><tt>blank.gif</tt> -- a 1x1 transparent GIF; required to display PNG icons in Internet Explorer</li>
+          <li>
+            <img align="middle" src="navbar/icons/minus.png" alt="minus.png" />
+            <tt>minus.png</tt> -- the “-” (collapse all) icon.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/plus.png" alt="plus.png" />
+            <tt>plus.png</tt> -- the “+” (expand all) icon.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/sticky-off.png" alt="sticky-off.png" />
+            <tt>sticky-off.png</tt> -- the “sticky” (auto-hide) icon, when “auto-hide” is off.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/sticky.png" alt="sticky.png" />
+            <tt>sticky.png</tt> -- the “sticky” (auto-hide) icon, when “auto-hide” is on.
+          </li>
+          <li>
+            <img align="middle" src="navbar/icons/sync.png" alt="sync.png" />
+            <tt>sync.png</tt> -- the “synchronize” icon.
+          </li>
+        </ul>
+        You can easily <a href="doc-icons">use custom control icons</a> without
+        modifying the ones in your NavBar installation.
+      </li>
+      <li>
+        <tt><a href="navbar/navbar.js" target="_blank" type="text/plain" title="Open this file in a new window">navbar.js</a></tt>
+        -- the main NavBar file; available only if you purchased a developer license.
+      </li>
+      <li>
+        <tt><a href="navbar/animation.js" target="_blank" type="text/plain" title="Open this file in a new window">animation.js</a></tt>
+        -- a generic Animation object; available only if you purchased a developer license.
+      </li>
+      <li>
+        <tt><a href="navbar/interval.js" target="_blank" type="text/plain" title="Open this file in a new window">interval.js</a></tt>
+        -- a generic Interval object; available only if you purchased a developer license.
+      </li>
+    </ul>
+  </li>
+  <li>
+    <tt><a href="samples/" target="_blank" title="Open this folder in a new window">samples/</a></tt>
+    -- folder containing sample files
+  </li>
+  <li>
+    <tt>*.html</tt> -- the documentation files
+  </li>
+  <li>
+    <tt><a href="setupmenu.js" type="text/plain" target="_blank" title="Open this file in a new window">setupmenu.js</a></tt>
+    -- NavBar definition file for the documentation.
+  </li>
+</ul>
+
+<h2>Loading the files</h2>
+
+<p>
+  As you can imagine, everything needed to run NavBar has been put
+  under the “navbar/” subdirectory.  Therefore, installing NavBar
+  requires you to copy that subdirectory in a path on your server
+  accessible from a browser.  Further we will assume that you copied
+  it in “/navbar/” in your server's document root, such that the
+  following link should be valid and lead to the main stripped
+  JavaScript file:
+</p>
+
+<pre>http://www.your-domain.com<span style="color: red">/navbar/</span>navbar.jss</pre>
+
+<p>
+  The part above in red is the “absolute URL relative to your server”,
+  so to say, through which the NavBar files can be accessed from a
+  browser.  For correct working NavBar requires you to declare this
+  path in a JavaScript variable, preferably before loading the
+  “navbar.jss” file:
+</p>
+
+<pre>  <span class="function-name">&lt;</span><span class="html-tag">script</span> <span class="variable-name">type=</span><span class="string">&quot;text/javascript&quot;</span><span class="function-name">&gt;</span>
+    _NavBar_url = <span class="string">&quot;/navbar/&quot;</span>;
+  <span class="function-name">&lt;</span><span class="html-tag">/script</span><span class="function-name">&gt;</span>
+  <span class="function-name">&lt;</span><span class="html-tag">script</span> <span class="variable-name">type=</span><span class="string">&quot;text/javascript&quot;</span> <span class="variable-name">src=</span><span class="string">&quot;/navbar/navbar.jss&quot;</span><span class="function-name">&gt;&lt;</span><span class="html-tag">/script</span><span class="function-name">&gt;</span></pre>
+
+<p>
+  Note that the value passed to _NavBar_url starts with a slash.
+  While this is not required, it's highly recommended because then
+  NavBar will be able to load its files regardless of the location of
+  the current page within your website.  You can omit the
+  <em>trailing</em> slash if you want.
+</p>
+
+<p>
+  Then, you need to load a CSS file that defines how the NavBar should
+  look like.  The bundled CSS file looks like in this page and can be
+  loaded for instance like this:
+</p>
+
+<pre>  <span class="function-name">&lt;</span><span class="html-tag">style</span> <span class="variable-name">type=</span><span class="string">&quot;text/css&quot;</span><span class="function-name">&gt;</span>
+    @import url<span class="function-name">(</span><span class="string">&quot;/navbar/navbar.css&quot;</span><span class="function-name">)</span>;
+  <span class="function-name">&lt;</span><span class="html-tag">/style</span><span class="function-name">&gt;</span></pre>
+
+<p>
+  And now you are ready for the next stage, <a href="doc-create.html">creating the NavBar</a>.
+</p>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

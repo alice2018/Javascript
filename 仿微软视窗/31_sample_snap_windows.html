@@ -1,0 +1,98 @@
+<!-- WinLIKE (c) 1998-2004 by CEITON technologies GmbH - www.winlike.net -->
+
+<!-- Change this source for older browsers! --><SCRIPT>WinLIKEerrorpage='winlike/winman/hlp-error.html';</SCRIPT>
+<SCRIPT SRC="winlike/winman/wininit.js"></SCRIPT><SCRIPT SRC="winlike/winman/winman.js"></SCRIPT>
+<!-- Delete this line, if the editor should not be used anymore. --><SCRIPT SRC="winlike/winedit/winedit.js"></SCRIPT>
+
+<!-- this code handles the snapping functionality - change it as you like -->
+<SCRIPT SRC="samples/snap/snap.js"></SCRIPT>
+
+<!-- WinLIKE Window-Definitions -->
+<SCRIPT>
+	// array definitions for the areas (left top and right bottom)
+	snappoint_x1=new Array();
+	snappoint_y1=new Array();
+	snappoint_x2=new Array();
+	snappoint_y2=new Array();
+
+	// SIMPLY ADD MORE AREAS HERE - THERE IS NOTHING MORE TO DO FOR
+	// definition of snap area 1
+	snappoint_x1[1]=115;
+	snappoint_y1[1]=150;
+	snappoint_x2[1]=450;
+	snappoint_y2[1]=500;
+	// definition of snap area 2
+	snappoint_x1[2]=475;
+	snappoint_y1[2]=150;
+	snappoint_x2[2]=700;
+	snappoint_y2[2]=275;
+	// definition of snap area 3
+	snappoint_x1[3]=475;
+	snappoint_y1[3]=300;
+	snappoint_x2[3]=700;
+	snappoint_y2[3]=500;
+	// definition of snap area 4
+	//snappoint_x1[4]=115;
+	//snappoint_y1[4]=525;
+	//snappoint_x2[4]=700;
+	//snappoint_y2[4]=650;	
+
+	// amount of snap areas
+	var snapareas=snappoint_x1.length;
+	// snapping area around the snap points
+	var snapspace=20;
+
+	WinLIKE.definewindows=mydefs;
+	function mydefs()
+	{
+		var j=new WinLIKE.window('snap only',150,180,240,240,23);
+		j.Nam='one';
+		j.Mn=true;
+		j.onEvent='snap_events' //call on every WinLIKE event this function
+		j.snap=true; // this is not a WinLIKE property; indicates, that snapping is activated for this window
+		WinLIKE.addwindow(j);
+
+		var j=new WinLIKE.window('snap into',195,225,240,240,24);
+		j.Nam='two';
+		j.onEvent='snap_events' //call on every WinLIKE event this function
+		j.snap=true; // this is not a WinLIKE property; indicates, that snapping is activated for this window
+		j.snapinto=true; // this is not a WinLIKE property; indicates, that this window should be resized while snapping in
+		WinLIKE.addwindow(j);
+	}
+
+	// WinLIKE window event handler
+	function snap_events(win, what) {
+		if (win.snap) // change this to specify different behavior for the windows
+		{
+			if      (what== 8) { return snap_resizingstart(win);  } // resizing start
+			else if (what== 9) { return snap_resizingend(win);    } // resizing end
+			else if (what==14) { return snap_resizing(win);       } // resizing
+			else if (what==15) { return snap_moving(win);         } // moving
+		}
+	}
+	
+	WinLIKE.onload=snap_onload;
+	function snap_onload()
+	{
+		// snap window "one" into snap area 3
+		snap_rightnow(WinLIKE.windows[WinLIKE.searchwindow("two")],3)
+		// add more onload snappings here
+	}
+</SCRIPT>
+
+
+<!-- Do not delete the following four lines! -->
+<BODY onLoad='WinLIKE.init();snap_visual();' onResize=WinLIKE.resizewindows() bgColor=#DDDDDD>
+	<!-- Don't remove this line!--><IMG ID=ih_ SRC="skins/trans.gif" style="z-Index:4000;position:absolute;left:0;top:0;width:100%;height:100%">
+	<!-- You can change this loading picture! --><IMG ID=ig_ SRC="winlike/winman/load.gif" STYLE="position:absolute;left:35%;top:40%;z-Index:4001">
+	
+	<!-- Insert your page-content here! -->
+	<DIV STYLE="position:absolute;left:110;top:15">
+		<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+			Here we show another feature, you can develop by yourself. WinLIKE supports only the needed functions
+			like overwriting the WinLIKE internal mouse coordinates.
+			<BR>
+			The window snaps into the gray box while moving or resizing. Just see the sourcecode at samples/snap/snap.js!
+			<BR><BR>
+		</FONT>
+	</DIV>

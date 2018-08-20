@@ -1,0 +1,18 @@
+<SCRIPT SRC=../../winlike/winman/winxtra.js></SCRIPT>
+<SCRIPT SRC=dialog.js></SCRIPT>
+
+<SCRIPT>
+	function getVal(val)
+	{
+		// display the return value or do something else with this value
+		document.getElementById("container").innerHTML=val;
+	}
+</SCRIPT>
+
+<BODY onLoad="registerWinLIKE_(self)">
+	<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+		<BR>
+		<!-- open ".../select.html" in window "select" and return the value into the "getVal" function -->
+		<A HREF="javascript:openDialog('samples/dialogs/select.html','select','getVal');">open WinLIKE dialog</A>
+		<BR><BR>
+		return value:&nbsp;<B><FONT ID=container></FONT></B>

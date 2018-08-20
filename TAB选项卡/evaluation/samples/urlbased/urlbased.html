@@ -1,0 +1,51 @@
+<html>
+<head>
+<script>
+
+function tabCreate(objTab,id)
+{
+	
+	objTab.design      = "1";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "IMAGE";
+	
+	var item = objTab.createItem();
+	item.text = "Google";
+	item.title = "Google";
+	item.active = true;
+	item.url = "http://www.google.com";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Yahoo";
+	item.title = "Yahoo";
+	item.active = false;
+	item.url = "http://www.yahoo.com";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Amazon";
+	item.title = "Amazon";
+	item.active = false;
+	item.url = "http://www.amazon.com";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+
+</script>
+</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<div style="font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 30px; POSITION: absolute; TOP: 25px">pinTab is URL based. Each static or dynamic page can be loaded into a tab item.</div>
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 30px; WIDTH: 700px; POSITION: absolute; TOP: 50px; HEIGHT: 500px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+	</body>
+</html>

@@ -1,0 +1,189 @@
+<html>
+	<head>
+		<script>
+
+var tab;
+var separator   = false;
+var design      = "1";
+var orientation = "0";
+var area        = true;
+var mode        = "IMAGE";
+var images      = false;
+
+function tabCreate(objTab,id)
+{
+	tab = objTab;
+
+	objTab.clear();
+		
+	objTab.design      = design;
+	objTab.orientation = orientation;
+	objTab.tabarea     = area;
+	objTab.designmode  = mode;
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	if(images)
+		item.image = "../evaluation/image1.gif";
+	item.active = true;
+	item.url = "../evaluation/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	if(images)
+		item.image = "../evaluation/image2.gif";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	if(separator) {
+		// add a separator
+		var item = objTab.createItem("TabSeparator");
+		objTab.add(item);
+	}
+	
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	if(images)
+		item.image = "../evaluation/image3.gif";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+// this function is called when an item is clicked
+function tabEventTabClick(objItem)
+{
+	//alert("Item clicked: " + objItem.text);
+}
+
+function selectImageStyle(list)
+{
+	mode = "IMAGE";
+	design = list.value;
+
+	document.body.style.backgroundColor = "";
+	document.body.style.backgroundImage = "url('')";
+
+	if(design == 1)
+		document.body.style.backgroundColor = "#ece9d8";
+
+	if(design == 2)
+		document.body.style.backgroundColor = "#ECE9D8";
+
+	if(design == 4)
+		document.body.style.backgroundColor = "#94B5C0";
+
+	if(design == 5)
+		document.body.style.backgroundImage = "url('../macback.png')";
+		
+	document.getElementById("oribottom").disabled = false;
+	
+	tabCreate(tab,"");
+}
+
+function selectColorStyle(list)
+{
+	mode = "COLOR";
+	design = list.value;
+  orientation = "0";
+
+	document.body.style.backgroundColor = "";
+	document.body.style.backgroundImage = "url('')";
+
+
+	if(design == 2)
+		document.body.style.backgroundColor = "#DCD9C8";
+
+	document.getElementById("oritop").checked = true;
+	document.getElementById("oribottom").disabled = true;
+	
+	tabCreate(tab,"");
+}
+
+function setArea(checkbox)
+{
+  area = checkbox.checked;
+	tabCreate(tab,"");
+	
+	if(checkbox.checked)
+	  document.getElementById("tab").style.height = "300";
+	else
+	  document.getElementById("tab").style.height = "26";
+}
+
+function setOrientation(option)
+{
+  orientation = option.value;
+	tabCreate(tab,"");
+}
+
+function setSeparator(checkbox)
+{
+	separator = checkbox.checked;
+	tabCreate(tab,"");
+}
+
+function setImages(checkbox)
+{
+	images = checkbox.checked;
+	tabCreate(tab,"");
+}
+
+		</script>
+	</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 30px; WIDTH: 300px; POSITION: absolute; TOP: 28px; HEIGHT: 300px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 30px">Image Style</div>
+		<SELECT id="lstStyleImage" style="Z-INDEX: 101; LEFT: 350px; POSITION: absolute; TOP: 50px"
+			onclick="selectImageStyle(this)" size="7" name="Select1">
+			<option value="1" selected>Windows XP like</option>
+			<option value="2">Office 2000</option>
+			<option value="3">Office 2003 like</option>
+			<option value="4">3D</option>
+			<option value="5">Mac like</option>
+			<option value="6">Round Corner Small - Gray</option>
+			<option value="7">Round Corner Small - Blue</option>
+			<option value="8">Round Corner Medium - Gray</option>
+			<option value="9">Round Corner Medium - Blue</option>
+		</SELECT>
+		<INPUT type="radio" id="oritop" name="RadioGroup" checked value="0" onclick="setOrientation(this)"
+			style="Z-INDEX: 103; LEFT: 350px; POSITION: absolute; TOP: 200px">
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 375px; POSITION: absolute; TOP: 202px">Tab 
+			orientation top</div>
+		<INPUT type="radio" id="oribottom" name="RadioGroup" value="1" onclick="setOrientation(this)" style="Z-INDEX: 104; LEFT: 350px; POSITION: absolute; TOP: 220px">
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 375px; POSITION: absolute; TOP: 222px">Tab 
+			orientation bottom</div>
+		<INPUT type="checkbox" onclick="setSeparator(this)" style="Z-INDEX: 105; LEFT: 350px; POSITION: absolute; TOP: 260px">
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 375px; POSITION: absolute; TOP: 262px">Separator</div>
+
+		<INPUT type="checkbox" onclick="setImages(this)" style="Z-INDEX: 105; LEFT: 350px; POSITION: absolute; TOP: 280px">
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 375px; POSITION: absolute; TOP: 282px">Images</div>
+
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 570px; POSITION: absolute; TOP: 30px">Color Style</div>
+		<SELECT id="lstStyleColor" style="Z-INDEX: 101; LEFT: 570px; POSITION: absolute; TOP: 50px"
+			onclick="selectColorStyle(this)" size="7" name="Select1">
+			<option value="1">Inset - Gray</option>
+			<option value="2">Inset - Blue</option>
+			<option value="3">Inset - Red</option>
+			<option value="4">Inset - Green</option>
+			<option value="5">Inset - Pink</option>
+			<option value="6">Outset - Gray</option>
+			<option value="7">Outset - Blue</option>
+			<option value="8">Outset - Red</option>
+			<option value="9">Outset - Green</option>
+			<option value="10">Outset - Pink</option>
+		</SELECT>
+
+		<INPUT type="checkbox" CHECKED onclick="setArea(this)" style="Z-INDEX: 102; LEFT: 350px; POSITION: absolute; TOP: 310px" ID="Checkbox1" NAME="Checkbox1">
+		<div style="font-family: arial;font-size:13px;Z-INDEX: 102; LEFT: 375px; POSITION: absolute; TOP: 312px">Area</div>
+
+	</body>
+</html>

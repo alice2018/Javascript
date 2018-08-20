@@ -1,0 +1,91 @@
+<html>
+<head>
+<script src="browser.js"></script>
+<script src="functions.js"></script>
+<script src="tree.js"></script>
+
+<script>
+
+//Pintexx-Rot: #CA003B
+//helles Grau: #F2F2F2
+//dunkles Grau: #CCCCCC
+//Blaugrau: #B1C0D2
+var tree;
+//var red = "#CA003B";
+var red = "rgb(176,8,95)";
+var highlight = "black";
+var web       = "/";
+
+tree                 = new Tree();
+tree.target          = "frMain";
+tree.backcolor       = "#ECE9D8"
+tree.selectfontcolor = red; //"rgb(176,8,95)";
+tree.highlight       = true;
+tree.font            = "Verdana, Arial, Helvetica, sans-serif"
+tree.fontsize        = "11px";
+tree.folderIcon      = "images/closed.gif";
+tree.openFolderIcon  = "images/opened.gif";
+tree.isFolderOpenedWhenTextClicked = true;
+tree.setIconsBlank();
+
+var node0 = new Node("pinTab");
+node0.fontbold = true;
+node0.fontcolor = highlight;
+node0.expanded = true;
+tree.add(node0);
+
+var node100 = new Node("pinTab Features","../doc/pinTabDataSheet.pdf")
+node100.fontbold = true;
+//node100.fontcolor = "red";
+node0.add(node100);
+
+var node3 = new Node("pinTab Samples");
+node3.fontbold = true;
+node3.fontcolor = highlight;
+node3.expanded = true;
+node0.add(node3);
+
+node3.add(new Node("Simple","../samples/simple/simple.html"));
+node3.add(new Node("Design","../samples/design/design.html"));
+node3.add(new Node("Design by code","../samples/code/code.html"));
+node3.add(new Node("Resize","../samples/resize/resize.html"));
+node3.add(new Node("Multiple","../samples/multiple/multiple.html"));
+node3.add(new Node("Separators","../samples/separator/separator.html"));
+node3.add(new Node("Cache","../samples/cache/cache.html"));
+node3.add(new Node("Dialog","../samples/dialog/open.html"));
+node3.add(new Node("Client Functions","../samples/functions/functions.html"));
+
+var node8 = new Node("pinTab Docs");
+node8.fontbold = true;
+node8.fontcolor = highlight;
+node0.add(node8);
+
+node8.add(new Node("pinTab Data Sheet","../doc/pinTabDataSheet.pdf"));
+node8.add(new Node("pinTab Manual","../doc/pinTabManual.pdf"));
+
+var node15 = new Node("Download pinTab");
+node15.fontbold = true;
+node15.fontcolor = "blue";
+node15.expanded = true;
+tree.add(node15);
+
+node15.add(new Node("pinTab Evaluation","http://www.pintexx.com/application/products/development/pinTab/download_files.html"));
+
+var node16 = new Node("Purchase pinTab");
+node16.fontbold = true;
+node16.fontcolor = "blue";
+node16.expanded = true;
+tree.add(node16);
+
+node16.add(new Node("Licencing","http://www.pintexx.com/application/products/development/pinTab/preise.html"));
+node16.add(new Node("Purchase","http://www.pintexx.com/application/products/order.html"));
+
+tree.draw();
+
+</script>
+</head>
+
+<body>
+</body>
+
+</html>

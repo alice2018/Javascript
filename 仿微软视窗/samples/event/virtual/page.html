@@ -1,0 +1,17 @@
+<SCRIPT src="../../winlike/winman/winxtra.js"></SCRIPT>
+
+<SCRIPT>
+	function pos()
+	{
+		win=parent.WinLIKE.windows[getWindowNumber_()];
+		win.Top=parent.document.body.scrollTop+200;
+		win.draw();
+	}
+</SCRIPT>
+
+
+<BODY onload=pos()>
+	<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+		This content moves the window into the visible scroll area.
+		<BR>
+		Just see my source code!

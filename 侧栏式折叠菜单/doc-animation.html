@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (Animation speed)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "Animation speed"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+<h1>NavBar animation</h1>
+
+<p>
+  NavBar supports several levels of animation and they can be set
+  using the “prefs” object:
+</p>
+
+<ul>
+  <li>
+    <tt>menu.prefs["animation"] = 0;</tt> -- this will disable all animation
+  </li>
+  <li>
+    <tt>menu.prefs["animation"] = 1;</tt> -- this will enable section-level animation (only when expand/collapse sections)
+  </li>
+  <li>
+    <tt>menu.prefs["animation"] = 2;</tt> -- this will enable NavBar-level animation (NavBar hide/show is also animated)
+  </li>
+  <li>
+    <tt>menu.prefs["animation"] = 3;</tt> -- this will enable page-level animation (NavBar hide/show also animates page content resizing)
+  </li>
+</ul>
+
+<p>
+  Animation speed can be further controlled by 4 configuration
+  variables, also accessible through the “prefs” object:
+</p>
+
+<ul>
+  <li><tt>ns-frames</tt> -- number of frames for section animation</li>
+  <li><tt>ns-fps</tt> -- number of frames per second for section animation</li>
+  <li><tt>nb-frames</tt> -- number of frames for NavBar animation</li>
+  <li><tt>nb-fps</tt> -- number of frames per second for NavBar animation</li>
+</ul>
+
+<p>
+  The “<tt>*-frames</tt>” variables can be numeric, in which case the
+  animation time will be equal regardless of section height, or they
+  can be the string "auto".  If "auto" is passed (this is also the
+  default) then NavBar will compute the number of frames dinamically
+  based on number of items present in each section.  This is the
+  nicest animation, in our opinion, but for very long sections it may
+  lead to slow animation which isn't desirable.
+</p>
+
+<p>
+  For experimentation, using the form below you can change the
+  animation parameters for the NavBar present in this page.  To
+  restore the default values just refresh this page (NavBar won't save
+  these variables).
+</p>
+
+<table align="center">
+  <tr>
+    <td style="text-align: right"><tt>menu.prefs["ns-frames"] =&nbsp;</tt></td>
+    <td><input size="4" name="ns-frames" id="ns-frames" type="text" /><button onclick="setAnimationPref(this)">Set!</button></td>
+  </tr>
+  <tr>
+    <td style="text-align: right"><tt>menu.prefs["ns-fps"] =&nbsp;</tt></td>
+    <td><input size="4" name="ns-fps" id="ns-fps" type="text" /><button onclick="setAnimationPref(this)">Set!</button></td>
+  </tr>
+  <tr>
+    <td style="text-align: right"><tt>menu.prefs["nb-frames"] =&nbsp;</tt></td>
+    <td><input size="4" name="nb-frames" id="nb-frames" type="text" /><button onclick="setAnimationPref(this)">Set!</button></td>
+  </tr>
+  <tr>
+    <td style="text-align: right"><tt>menu.prefs["nb-fps"] =&nbsp;</tt></td>
+    <td><input size="4" name="nb-fps" id="nb-fps" type="text" /><button onclick="setAnimationPref(this)">Set!</button></td>
+  </tr>
+</table>
+
+<script type="text/javascript">//<![CDATA[
+window.onload = function() {
+  document.getElementById("ns-frames").value = menu.prefs["ns-frames"];
+  document.getElementById("ns-fps").value = menu.prefs["ns-fps"];
+  document.getElementById("nb-frames").value = menu.prefs["nb-frames"];
+  document.getElementById("nb-fps").value = menu.prefs["nb-fps"];
+};
+
+function setAnimationPref(btn) {
+  var field = btn.previousSibling;
+  var pref = field.name;
+  var val = parseInt(field.value);
+  if (isNaN(val)) {
+    if (/frames/.test(pref)) {
+      val = "auto";
+      field.value = val;
+    } else {
+      val = 25;
+      field.value = val;
+    }
+  }
+  menu.prefs[pref] = val;
+};
+//]]></script>
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

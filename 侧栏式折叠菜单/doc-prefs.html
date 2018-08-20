@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="padding: 0px; margin: 0px">
+
+  <head>
+
+    <title>Dynarch DHTML/JavaScript Navigation Bar (Changing prefs)</title>
+
+    <!-- include the main script -->
+    <script type="text/javascript" src="navbar/navbar.jss"></script>
+
+    <script type="text/javascript">
+      _NavBar_pageID = "Changing prefs"; /* disable the current page from the menu */
+    </script>
+
+    <style type="text/css">
+      /* import the navigation bar styles */
+      @import url(navbar/navbar.css);
+
+      /* your own styles go here */
+      @import url(style.css);
+
+      h1 { margin: 0px; }
+    </style>
+
+  </head>
+
+  <body>
+    
+    <!-- the following will appear before the menu in the menubar -->
+    <div id="beforemenu">
+      (c) Dynarch.com 2003-2005.<br />All Rights Reserved.
+    </div>
+
+    <!-- and the following after the menu, in the menubar -->
+    <div id="aftermenu" style="margin: 0 10px">
+      NavBar is designed and implemented by <a href="http://dynarch.com/mishoo/">mishoo</a> with
+      the same dedication and care for details that he has put in <a href="http://www.dynarch.com/products/">all his</a>
+      <a href="http://www.dynarch.com/projects/">projects</a>.
+    </div>
+
+    <!-- page content starts here -->
+    <div id="content">
+
+      <div id="page-content">
+
+        <div id="panel">
+          <b>Preferences</b><br />
+          <input type="checkbox" name="autohide" id="autohide"
+            onclick="menu.setPref('auto-hide', this.checked);"
+            />
+          <label for="autohide" title="If checked then the menubar will show/hide automatically">auto-hide</label><br />
+          <input type="checkbox" name="monosection" id="monosection"
+            onclick="menu.setPref('mono-section', this.checked);"
+            />
+          <label for="monosection" title="If checked then only one section at a time will be visible">mono-section</label><br />
+          <input type="checkbox" name="tooltips" id="tooltips"
+            onclick="menu.setPref('tooltips', this.checked); alert('You have to reload the page in order for the changes to take effect');"
+            />
+          <label for="tooltips" title="If checked the menu will display tooltips">tooltips</label><br />
+          <label for="animation">animation:</label>
+          <select name="animation" id="animation"
+            onchange="menu.setPref('animation', this.value);">
+            <option value="0">None</option>
+            <option value="1">Section</option>
+            <option value="2">NavBar</option>
+            <option value="3">Page (bloat)</option>
+          </select>
+        </div>
+<h1>How to set preferences</h1>
+
+<p>
+  NavBar supports some customization by changing the properties of the
+  “prefs” member object.  You can read the full list of properties in
+  <a href="customize.html">customize.html</a>.
+</p>
+
+<p>
+  There are some particular things to be discussed about certain
+  preferences.  NavBar automatically saves certain preferences in a
+  cookie--such as "auto-hide", "mono-section", or even the current
+  section number.  For this reason, if you want to make sure that they
+  have a certain value you should set them after the call to
+  <tt>menu.generate()</tt>.  As well, there are other prefs--such as
+  "no-controls"--which must be set <em>before</em> the call to
+  <tt>menu.openMenu()</tt>, or otherwise they won't have effect.
+</p>
+
+<p>
+  Here's an example for setting certain prefs:
+</p>
+
+<pre>  <span class="keyword">var</span> <span class="variable-name">menu</span> = <span class="keyword">new</span> NavBar(<span class="string">&quot;content&quot;</span>);
+  menu.prefs[<span class="string">&quot;no-controls&quot;</span>] = <span class="keyword">true</span>;
+  <span class="comment">// open the menu now, without controls
+</span>  menu.openMenu();
+  <span class="keyword">new</span> NavSection(menu, ...);
+  <span class="comment">// ...
+</span>  menu.generate();
+  <span class="comment">// the following prefs are restored from cookie at generate()
+</span>  <span class="comment">// so we'd better set them here, just in case.
+</span>  menu.prefs[<span class="string">&quot;tooltips&quot;</span>] = <span class="keyword">false</span>;
+  menu.prefs[<span class="string">&quot;ns-frames&quot;</span>] = 50; <span class="comment">// really slow animation
+</span></pre>
+
+<p>
+  Another example is how to set the link in the control bar.  Same as
+  "no-controls", these preferences must be set before the call to
+  <tt>openMenu()</tt> because otherwise they won't be present in the
+  first control bar:
+</p>
+
+<pre>  <span class="keyword">var</span> <span class="variable-name">menu</span> = <span class="keyword">new</span> NavBar(...);
+  menu.prefs[<span class="string">&quot;home-href&quot;</span>] = <span class="string">&quot;http://www.dynarch.com/&quot;</span>;
+  menu.prefs[<span class="string">&quot;home-title&quot;</span>] = <span class="string">&quot;Home&quot;</span>;
+  menu.prefs[<span class="string">&quot;home-text&quot;</span>] = <span class="string">&quot;home&quot;</span>;
+  menu.openMenu();
+  ...</pre>
+
+
+
+      </div>
+    </div>
+    <script type="text/javascript" src="setupmenu.js"></script>
+  </body>
+</html>

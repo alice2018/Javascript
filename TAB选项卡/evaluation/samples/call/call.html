@@ -1,0 +1,57 @@
+<html>
+<head>
+<script>
+var tab = null;
+function tabCreate(objTab,id)
+{
+	tab = objTab;
+	
+	objTab.design      = "1";
+	objTab.orientation = "0";
+	objTab.tabarea     = true;
+	objTab.designmode  = "IMAGE";
+	
+	var item = objTab.createItem();
+	item.text = "Common";
+	item.title = "Common";
+	item.active = true;
+	item.url = "../evaluation/p1.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Options";
+	item.title = "Options";
+	item.active = false;
+	item.url = "../evaluation/p2.html";
+	objTab.add(item);
+
+	var item = objTab.createItem();
+	item.text = "Misc";
+	item.title = "Misc";
+	item.active = false;
+	item.url = "../evaluation/p3.html";
+	objTab.add(item);
+
+	objTab.create();
+}
+
+function call()
+{
+	// get all tab items
+	var items = tab.getTabItems();
+	// call test() in each page
+	// could also be a form submit 
+	for(var i=0;i<items.length;i++) { 
+		items[i].call("test()");
+	}
+}
+
+</script>
+</head>
+	<body style="BACKGROUND-COLOR: #ece9d8">
+		<div style="font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 30px; POSITION: absolute; TOP: 25px">Calls a Javascript function on each tab item page:</div>
+		<iframe id="tab" style="Z-INDEX: 100; LEFT: 30px; WIDTH: 300px; POSITION: absolute; TOP: 50px; HEIGHT: 300px"
+			src="../../../tab/pinTab.html?id=tab" frameBorder="0"></iframe>
+		<div style="font-family: arial;font-size:12px;Z-INDEX: 102; LEFT: 30px; POSITION: absolute; TOP: 400px"><input type=button value="Call" onclick="call();"></div>
+	</body>
+</html>

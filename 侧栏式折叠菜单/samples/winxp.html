@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/xml; charset=utf-8" />
+    <title>Dynarch NavBar: Windows XP Explorer Menus sample</title>
+    <script type="text/javascript">
+      /* declare the URL to navbar */
+      _NavBar_url = "../navbar/";
+      _NavBar_icons_url = "../navbar/themes/winxp/";
+    </script>
+    <!-- include the main script -->
+    <script type="text/javascript" src="../navbar/navbar.jss"></script>
+
+    <script type="text/javascript">//<![CDATA[
+      function ourHandler(param, item, section) {
+        var navbar = section.parent;
+        switch (param) {
+          case "date":
+            alert(new Date());
+            break;
+          case "auto-hide":
+            navbar.setPref("auto-hide", !navbar.prefs["auto-hide"]);
+            break;
+          case "sec-3-tog":
+            var sec = navbar.sections[2]; // starts at zero
+            sec.toggle();
+            break;
+        }
+      }
+      function initDocument() {
+        var menu = new NavBar(document.getElementById("content"));
+        menu.prefs["no-controls"] = true;
+        menu.prefs["icon-width"] = 18;
+        menu.prefs["icon-height"] = 18;
+        menu.openMenu();
+        var section;
+        section = new NavSection(menu, "Other places",
+                       [
+                       [ "Dynarch.com Website", "http://www.dynarch.com/", "Visit our company!", "dynarch.gif" ],
+                       [ "Horizontal Menu", "http://www.dynarch.com/products/hmenu/", "The Best DHTML Menu on the Planet", "hmenu.gif" ],
+                       [ "Navigation Bar", "http://www.dynarch.com/products/navbar/", "The page of this very product!", "navbar.gif" ],
+                       [ "Web-based Chat!", "http://www.dynarch.com/products/chat/", "Smooth IRC-like Chat for the Web", "chat.gif" ],
+                       [ "SQL Designer", "http://www.dynarch.com/products/sqldes/", "SQL Designer for the Web (coming soon)", "db.gif" ]
+                       ]);
+        menu.currentSection = section;
+
+        // make this first section look "active"
+        section.setClass("active-section");
+
+        section = new NavSection(menu, "JavaScript actions",
+                       [
+                       [ "Show date", ourHandler, null, null, "date" ],
+                       [ "Toggle autohide", ourHandler, null, null, "auto-hide" ],
+                       [ "Toggle Details", ourHandler, null, null, "sec-3-tog" ],
+                       null,
+                       [ "Some other items&mdash;testing a very looong item, should wrap.", "#", null, null, null ],
+                       [ "Foo bar baz", "#", null, null, null ]
+                       ]);
+
+        section = new NavSection(menu, "Details", "html-section");
+
+        menu.generate();
+        menu.prefs["mono-section"] = false;
+        menu.sync();
+      }
+    //]]></script>
+
+    <style type="text/css">
+      @import url("../navbar/themes/winxp/skin.css");
+      html, body { margin: 0; height: 100%; }
+      body { background-color: #84a6ef; font: 12px "trebuchet ms",tahoma,verdana,sans-serif; }
+      #content-body { background-color: #fff; color: #000; padding: 10px 20px; }
+    </style>
+
+  </head>
+
+  <body onload="initDocument()">
+    <div id="html-section">
+      <b>winxp.html</b><br />
+      HTML Page<br />
+      Encoding: UTF-8
+      <div class="separator">&nbsp;</div>
+      Demonstrates the wonderful XP Explorer menus theme that <a
+      href="http://www.dynarch.com/products/navbar/">NavBar</a>
+      provides as part of the default package.
+      <div class="separator">&nbsp;</div>
+      <center>
+        » <a href="http://www.dynarch.com/products/navbar/buy.html">Buy this product!</a> «
+      </center>
+    </div>
+    <div id="content"><div id="content-body">
+      <h1>Windows XP Explorer menus</h1>
+      <p>
+        As you could have figured out already, Dynarch NavBar is very
+        close to the all-so-known Windows XP Explorer menus.  The
+        missing part was a CSS file that defines a similar look.
+        Well, there you have it! :-)
+      </p>
+      <p>
+        In order to make your NavBar look like WinXP menus, just load
+        the <tt>/navbar/themes/winxp/skin.css</tt> skin, and set
+        <tt>_NavBar_icons_url = "/navbar/themes/winxp/"</tt>.  View
+        the source of this page for more details.
+      </p>
+      <p>
+        You can read more information about <a
+        href="../doc-skins.html">CSS files</a> and <a
+        href="../doc-icons.html">custom icons</a> in the NavBar
+        documentation.
+      </p>
+
+      <h2>JavaScript actions</h2>
+
+      <p>
+        As of version 2.5, NavBar supports custom JavaScript action
+        handlers for menu items in a very straightforward way.
+        Instead of passing an URL, just pass a reference to a
+        JavaScript function which is previously defined.  In order to
+        pass a custom argument to that function, put it in place of
+        the “target” attribute.  For example:
+      </p>
+
+      <pre><span class="keyword">function</span> <span class="function-name">showDate</span>(param, item, section) {
+    <span class="keyword">var</span> <span class="variable-name">menu</span> = section.parent;
+    <span class="comment">// &quot;menu&quot; is a reference to the NavBar object
+</span>    <span class="comment">// you can use it now i.e. to set preferences:
+</span>    <span class="comment">// menu.setPref(&quot;auto-hide&quot;, true);
+</span>
+    <span class="comment">// but let's show the date:
+</span>    alert(<span class="keyword">new</span> Date() + <span class="string">&quot;\nPassed argument is: &quot;</span> + param);
+}
+<span class="keyword">var</span> <span class="variable-name">menu</span> = <span class="keyword">new</span> NavBar(...);
+<span class="keyword">new</span> NavSection(menu, <span class="string">&quot;Section label&quot;</span>, [
+   [ <span class="string">&quot;Show date&quot;</span>, showDate, <span class="string">&quot;tooltip&quot;</span>, <span class="string">&quot;icon.gif&quot;</span>, <span class="string">&quot;custom argument&quot;</span> ]
+]);</pre>
+
+      <p>
+        The above code creates an item that will call our custom
+        function “showDate” when clicked.  The function receives 3
+        arguments.  Beware that the first one may be undefined if you
+        don't pass it.  In the code above though we pass it and its
+        value is “custom argument”.  The other two arguments are
+        “item” -- a referenece to the TR element that holds the item
+        elements, and “section” -- a reference to the NavSection
+        object that this item belongs to.
+      </p>
+    </div></div>
+  </body>
+</html>
+

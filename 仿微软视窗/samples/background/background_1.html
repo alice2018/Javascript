@@ -1,0 +1,58 @@
+<SCRIPT>
+	function change(txt)
+	{
+		if (txt=="div")
+		{
+			var elem=document.getElementById('mydiv');
+			var smallsize=400;
+			var longsize=800;
+		}
+		else
+		{
+			var elem=document.getElementById('mytable');
+			var smallsize=502;
+			var longsize=900;
+		}
+
+		if (elem.style.width==longsize+"px")
+			elem.style.width=smallsize;
+		else elem.style.width=longsize;
+				
+		parent.WinLIKE.resizewindows();
+	}
+</SCRIPT>
+
+<STYLE>
+	.txt{font-face:"Verdana, Arial, Helvetica"; font-size:x-small}
+</STYLE>
+
+
+<BODY onLoad="parent.WinLIKE.resizewindows();" BGCOLOR=#AAEEAA>
+	
+	<DIV STYLE="position:absolute;left:110;top:15">
+		<FONT FACE="Verdana, Arial, Helvetica" SIZE=2>
+			You can load content into the background while all windows stay visible. This is a little trick,
+			because the background is a 100% window (<B>.Bg=true</B>) with an empty skin. So it looks like the real background page.
+			To use this feature, every background page must have the following event: <B>onLoad="parent.WinLIKE.resizewindows();"</B>.
+			<BR><BR>
+			When you want to change background dynamicaly without reloading the window,
+			you must also actualize the background window size with WinLIKE.resizewindows().
+			Click the bars below to test it.
+		</FONT>
+	</DIV>
+
+	<BR><BR><BR><BR><BR><BR><BR><BR>
+
+	<DIV ID=mydiv CLASS=txt onClick=change('div') STYLE="position:absolute;left:110;top:200;width:400;background-color:red;">
+		absolute positioned element (x,y)
+	</DIV>
+
+	<TABLE ID=mytable CLASS=txt onClick=change('table') BORDER=0 WIDTH=502>
+		<TR>
+			<TD WIDTH=95>
+			</TD>
+			<TD BGCOLOR=gray>
+				relative positioned element (pageflow)
+			</TD>
+		</TR>
+	</TABLE>
